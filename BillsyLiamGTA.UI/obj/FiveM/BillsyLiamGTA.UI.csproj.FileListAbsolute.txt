@@ -1,0 +1,9 @@
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\FiveM\CitizenFX.Core.Client.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\FiveM\ScriptHookVDotNet3.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\FiveM\CitizenFX.Core.Client.xml
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\FiveM\ScriptHookVDotNet3.pdb
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\FiveM\BillsyLiamGTA.UI.csproj.AssemblyReference.cache
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\FiveM\BillsyLiamGTA.UI.csproj.CoreCompileInputs.cache
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\FiveM\BillsyLi.68335D05.Up2Date
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\FiveM\BillsyLiamGTA.UI.FiveM.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\FiveM\BillsyLiamGTA.UI.FiveM.dll

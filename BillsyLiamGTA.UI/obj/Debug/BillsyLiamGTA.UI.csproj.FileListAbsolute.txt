@@ -1,0 +1,9 @@
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\Debug\BillsyLiamGTA.UI.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\Debug\BillsyLiamGTA.UI.pdb
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\Debug\ScriptHookVDotNet3.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\Debug\ScriptHookVDotNet3.pdb
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\Debug\BillsyLiamGTA.UI.csproj.AssemblyReference.cache
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\Debug\BillsyLiamGTA.UI.csproj.CoreCompileInputs.cache
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\Debug\BillsyLi.68335D05.Up2Date
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\Debug\BillsyLiamGTA.UI.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\Debug\BillsyLiamGTA.UI.pdb

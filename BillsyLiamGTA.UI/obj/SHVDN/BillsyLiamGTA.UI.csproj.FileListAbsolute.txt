@@ -1,0 +1,9 @@
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\SHVDN\BillsyLiamGTA.UI.csproj.AssemblyReference.cache
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\SHVDN\BillsyLiamGTA.UI.csproj.CoreCompileInputs.cache
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\SHVDN\BillsyLiamGTA.UI.SHVDN.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\SHVDN\CitizenFX.Core.Client.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\SHVDN\ScriptHookVDotNet3.dll
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\SHVDN\CitizenFX.Core.Client.xml
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\bin\SHVDN\ScriptHookVDotNet3.pdb
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\SHVDN\BillsyLi.68335D05.Up2Date
+C:\Users\Liam\source\repos\BillsyLiamGTA.UI\obj\SHVDN\BillsyLiamGTA.UI.SHVDN.dll
