@@ -17,8 +17,9 @@ namespace BillsyLiamGTA.UI.Menu
     public class UIMenu
     {
         #region Fields
+
         /// <summary>
-        /// The private visibility value of the menu.
+        /// The visibility of the menu.
         /// </summary>
         private bool _visible;
         /// <summary>
@@ -50,7 +51,7 @@ namespace BillsyLiamGTA.UI.Menu
             }
         }
         /// <summary>
-        /// If the menu's banner is enabled.
+        /// If the menu's banner is enabled or not.
         /// </summary>
         public bool BannerEnabled { get; set; } = true;
         /// <summary>
@@ -58,7 +59,11 @@ namespace BillsyLiamGTA.UI.Menu
         /// </summary>
         public TextureAsset BannerTexture { get; set; }
         /// <summary>
-        /// If the menu's glare effect is enabled. 
+        /// The banner's color.
+        /// </summary>
+        public Color BannerColor { get; set; } = Color.FromArgb(255, 255, 255, 255);
+        /// <summary>
+        /// If the menu's glare effect is enabled or not. 
         /// </summary>
         public bool Glare { get; set; } = true;
         /// <summary>
@@ -74,7 +79,7 @@ namespace BillsyLiamGTA.UI.Menu
         /// </summary>
         private Size HeaderSize = new Size(435, 37);
         /// <summary>
-        /// The private width value of the menu.
+        /// The width of the menu.
         /// </summary>
         private int _width { get; set; } = 435;
         /// <summary>
@@ -93,6 +98,9 @@ namespace BillsyLiamGTA.UI.Menu
                 _width = value;
             }
         }
+        /// <summary>
+        /// The menu's parent panel. Recreation from GTA Online heritage UI.
+        /// </summary>
         public UIMenuParentPanel ParentPanel { get; set; }
         /// <summary>
         /// The title of the menu.
@@ -102,6 +110,10 @@ namespace BillsyLiamGTA.UI.Menu
         /// The font of the menu's title.
         /// </summary>
         public SText.eTextFonts TitleFont { get; set; } = SText.eTextFonts.FONT_CONDENSED;
+        /// <summary>
+        /// The title's text color.
+        /// </summary>
+        public Color TitleColor { get; set; } = Color.White;
         /// <summary>
         /// The subtitle of the menu.
         /// </summary>
@@ -160,11 +172,11 @@ namespace BillsyLiamGTA.UI.Menu
             (InputControl)199,
         };
         /// <summary>
-        /// The list of the menu's items.
+        /// A list containing the menu's items.
         /// </summary>
         private List<UIMenuBaseItem> Items { get; set; }
         /// <summary>
-        /// Return's the selected item in the menu.
+        /// Return's the currently selected item in the menu.
         /// </summary>
         public UIMenuBaseItem SelectedItem
         {
@@ -254,12 +266,12 @@ namespace BillsyLiamGTA.UI.Menu
             PointF safe = SafezoneTools.SafezoneBounds;
             if (BannerEnabled)
             {
-                new SSprite(BannerTexture, new PointF(safe.X - 2f, safe.Y), BannerSize, Color.FromArgb(255, 255, 255)).Draw();
+                new SSprite(BannerTexture, new PointF(safe.X - 2f, safe.Y), BannerSize, BannerColor).Draw();
                 if (Glare)
                 {
 
                 }
-                new SText(Title, new PointF(safe.X + 10, safe.Y + BannerSize.Height / 5), 0.9f, Color.White, TitleFont, SText.eTextAlignments.Left).Draw();
+                new SText(Title, new PointF(safe.X + 10, safe.Y + BannerSize.Height / 5), 0.9f, TitleColor, TitleFont, SText.eTextAlignments.Left).Draw();
             }
             
             new SRectangle(new PointF(safe.X - 2f, safe.Y + (BannerEnabled ? BannerSize.Height : 0)), new SizeF(BannerSize.Width, 37), Color.Black).Draw();
