@@ -62,6 +62,9 @@ When the slider's value is changed the ValueChanged event invokes. See the examp
 SliderItem.ValueChanged += (sender, e) =>
 {
     // Your code functions here
+    Function.Call(Hash.BEGIN_TEXT_COMMAND_PRINT, "STRING");
+    Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, "Value changed: " + e.Value);
+    Function.Call(Hash.END_TEXT_COMMAND_PRINT, 2000, true);
 };
 ```
 
