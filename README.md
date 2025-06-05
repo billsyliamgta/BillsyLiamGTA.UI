@@ -1,6 +1,6 @@
 # UIMenu
 
-Creating a Menu with a banner.
+## Creating a Menu with a banner.
 
 ```
 Menu = new UIMenu("Menu Example", "Meow Meow Meow");
@@ -22,11 +22,14 @@ Menu.AddParentPanel(new UIMenuParentPanel());
 Menu.Visible = true;
 
 ```
+## Banner Texture
 
-No Banner
+The banner's texture can be changed like this: ```Menu.BannerTexture = new TextureAsset("texture_dict", "texture_name");```
+
+## No Banner
 
 You can toggle the menu's banner by using ```Menu.BannerEnabled``` boolean.
 
-Scrolling
+## Scrolling
 
 The menu will turn into a "scroll menu" if the item count is greater than ```MaxOnScreenItems``` (by default this is 5).
