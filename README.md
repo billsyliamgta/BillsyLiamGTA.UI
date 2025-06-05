@@ -2,7 +2,8 @@
 
 Creating a Menu with a banner.
 
-```Menu = new UIMenu("Menu Example", "Meow Meow Meow");
+```
+Menu = new UIMenu("Menu Example", "Meow Meow Meow");
 NormalItem = new UIMenuNormalItem("Normal Item", "");
 NormalColouredItem = new UIMenuNormalItem("Pretty colours", "");
 NormalColouredItem.DefaultTabColor = Color.FromArgb(155, 203, 54, 148);
@@ -18,4 +19,10 @@ Menu.AddItem(CheckboxItem);
 Menu.AddItem(ListItem);
 Menu.AddItem(SliderItem);
 Menu.AddParentPanel(new UIMenuParentPanel());
-Menu.Visible = true;```
+Menu.Visible = true;
+
+```
+
+No Banner
+
+You can toggle the menu's banner by using ```Menu.BannerEnabled``` boolean.
