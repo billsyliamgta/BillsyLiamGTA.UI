@@ -46,6 +46,9 @@ When any item is pressed by tbe player the Activated event invokes. See the exam
 Item.Activated += (sender, e) =>
 {
     // Your code functions here
+    Function.Call(Hash.BEGIN_TEXT_COMMAND_PRINT, "STRING");
+    Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, "Item activated!");
+    Function.Call(Hash.END_TEXT_COMMAND_PRINT, 2000, true);
 };
 ```
 
