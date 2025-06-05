@@ -35,7 +35,7 @@ You can toggle the menu's banner by using ```Menu.BannerEnabled``` boolean.
 The menu will turn into a "scroll menu" if the item count is greater than ```MaxOnScreenItems``` (by default this is 5).
 
 
-# Items
+# All Items
 
 ## Activated
 
@@ -51,3 +51,18 @@ Item.Activated += (sender, e) =>
 ## IsHovered
 
 Use the ```Item.IsHovered``` boolean to check if the cursor (if active) is currently hovering over the item.
+
+# UIMenuSliderItem
+
+The value of the slider ranges between 0.0 and 1.0 (float), use  ```SliderItem.Value```.
+
+When the slider's value is changed the ValueChanged event invokes. See the example below to implement, your own functions. ⚠️ This only needs to be called ONCE!
+
+```
+SliderItem.ValueChanged += (sender, e) =>
+{
+    // Your code functions here
+};
+```
+
+Gender icons can be toggled like the GTA Online character creator heritage menu, by ```SliderItem.GenderIconsEnabled``` boolean.
