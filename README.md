@@ -52,6 +52,18 @@ Item.Activated += (sender, e) =>
 
 Use the ```Item.IsHovered``` boolean to check if the cursor (if active) is currently hovering over the item.
 
+# UIMenuCheckboxItem
+
+A tick box item. You can whether its ticked or not - and even set, by using the ```CheckboxItem.IsChecked``` boolean.
+
+# UIMenuListItem<T>
+
+Makes a list item containing anything you like strings, int's etc. Use ```ListItem.Items``` to add and remove objects.
+
+```ListItem.Index``` gets/sets the current index being displayed.
+
+```ListItem.CurrentValue``` returns the current index's value as the desired object.
+
 # UIMenuSliderItem
 
 The value of the slider ranges between 0.0 and 1.0 (float), use  ```SliderItem.Value```.
