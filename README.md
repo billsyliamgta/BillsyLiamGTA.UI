@@ -33,3 +33,21 @@ You can toggle the menu's banner by using ```Menu.BannerEnabled``` boolean.
 ## Scrolling
 
 The menu will turn into a "scroll menu" if the item count is greater than ```MaxOnScreenItems``` (by default this is 5).
+
+
+# Items
+
+## Activated
+
+When any item is pressed by tbe player the Activated event invokes. See the example below to implement, your own functions. ⚠️ This only needs to be called ONCE!
+
+```
+Item.Activated += (sender, e) =>
+{
+    // Your code functions here
+};
+```
+
+## IsHovered
+
+Use the ```Item.IsHovered``` boolean to check if the cursor (if active) is currently hovering over the item.
