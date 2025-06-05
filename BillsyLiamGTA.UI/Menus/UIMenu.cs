@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using GTA;
@@ -7,7 +6,6 @@ using GTA.UI;
 using GTA.Native;
 using BillsyLiamGTA.UI.Elements;
 using BillsyLiamGTA.UI.Scaleform;
-using System.Runtime.InteropServices;
 
 namespace BillsyLiamGTA.UI.Menu
 {
@@ -35,14 +33,19 @@ namespace BillsyLiamGTA.UI.Menu
             {
                 if (value)
                 {
-                    if (Glare)
+                    if (GlareEffectEnabled && GlareEffectScaleform == null)
                     {
+                        GlareEffectScaleform = new MpMenuGlare();
+                        GlareEffectScaleform.Load();
                     }
-
+                    InstructionalButtons?.Load();
                     MenuOpened?.Invoke(this, new UIMenuOpenedArgs());
                 }
                 else
                 {
+                    GlareEffectScaleform?.Dispose();
+                    GlareEffectScaleform = null;
+                    InstructionalButtons?.Dispose();
                     BannerTexture?.Dispose();
                     MenuClosed?.Invoke(this, new UIMenuClosedArgs());
                 }
@@ -63,9 +66,13 @@ namespace BillsyLiamGTA.UI.Menu
         /// </summary>
         public Color BannerColor { get; set; } = Color.FromArgb(255, 255, 255, 255);
         /// <summary>
-        /// If the menu's glare effect is enabled or not. 
+        /// The menu's glare scaleform object.
         /// </summary>
-        public bool Glare { get; set; } = true;
+        public MpMenuGlare GlareEffectScaleform;
+        /// <summary>
+        /// If the menu's glare effect is enabled or not.
+        /// </summary>
+        public bool GlareEffectEnabled { get; set; } = true;
         /// <summary>
         /// Whether the menu can be closed by the player or not.
         /// </summary>
@@ -99,9 +106,32 @@ namespace BillsyLiamGTA.UI.Menu
             }
         }
         /// <summary>
+        /// The calculated height of the menu.
+        /// </summary>
+        public int CalculatedHeight
+        {
+            get
+            {
+                int height = HeaderSize.Height;
+                if (BannerEnabled)
+                {
+                    height += BannerSize.Height;
+                }
+                return height;
+            }
+        }
+        /// <summary>
+        /// The gap between the menu and the scroll indicator.
+        /// </summary>
+        public int ScrollIndicatorMargin { get; set; } = 3;
+        /// <summary>
+        /// The gap between the menu and the description.
+        /// </summary>
+        public int DescriptionMargin { get; set; } = 5;
+        /// <summary>
         /// The menu's parent panel. Recreation from GTA Online heritage UI.
         /// </summary>
-        public UIMenuParentPanel ParentPanel { get; set; }
+        private UIMenuParentPanel ParentPanel { get; set; }
         /// <summary>
         /// The title of the menu.
         /// </summary>
@@ -148,7 +178,7 @@ namespace BillsyLiamGTA.UI.Menu
         /// <summary>
         /// The max amount of items that be drawn on screen.
         /// </summary>
-        public int MaxOnScreenItems { get; set; } = 7;
+        public int MaxOnScreenItems { get; set; } = 5;
         /// <summary>
         /// The list of controls that are disabled when the menu is visible.
         /// </summary>
@@ -156,6 +186,7 @@ namespace BillsyLiamGTA.UI.Menu
         {
             InputControl.FrontendPause,
             InputControl.FrontendPauseAlternate,
+            InputControl.Phone,
             InputControl.PhoneUp,
             InputControl.PhoneDown,
             InputControl.PhoneLeft,
@@ -194,29 +225,35 @@ namespace BillsyLiamGTA.UI.Menu
 
         public UIMenuClosedEventHandler MenuClosed;
 
+        public InstructionalButtons InstructionalButtons { get; set; }
+
         #endregion
 
         #region Constructors
 
-        public UIMenu(string title, string subtitle, bool glare, params UIMenuBaseItem[] items)
+        public UIMenu(string title, string subtitle, params UIMenuBaseItem[] items)
         {
             Items = new List<UIMenuBaseItem>();
             Items.AddRange(items);
             Title = title;
             Subtitle = subtitle;
             BannerTexture = new TextureAsset("commonmenu", "interaction_bgd");
-            Glare = glare;
+            InstructionalButtons = new InstructionalButtons();
+            InstructionalButtons.AddContainer(new InstructionalButtonContainer(InputControl.FrontendAccept, "Select"));
+            InstructionalButtons.AddContainer(new InstructionalButtonContainer(InputControl.FrontendCancel, "Back"));
             MenuHandler.Add(this);
         }
 
-        public UIMenu(string title, string subtitle, TextureAsset bannerTexture, bool glare, params UIMenuBaseItem[] items)
+        public UIMenu(string title, string subtitle, TextureAsset bannerTexture, params UIMenuBaseItem[] items)
         {
             Items = new List<UIMenuBaseItem>();
             Items.AddRange(items);
             Title = title;
             Subtitle = subtitle;
             BannerTexture = bannerTexture;
-            Glare = glare;
+            InstructionalButtons = new InstructionalButtons();
+            InstructionalButtons.AddContainer(new InstructionalButtonContainer(InputControl.FrontendAccept, "Select"));
+            InstructionalButtons.AddContainer(new InstructionalButtonContainer(InputControl.FrontendCancel, "Back"));
             MenuHandler.Add(this);
         }
 
@@ -226,12 +263,13 @@ namespace BillsyLiamGTA.UI.Menu
 
         private void DrawDescription(string text, float x, float y)
         {
+            y += DescriptionMargin;
             if (!string.IsNullOrEmpty(text))
             {
-                new SRectangle(new PointF(x - 2f, y + 37 + 1), new SizeF(Width, 2.5f), Color.Black).Draw();
-                SText descriptionText = new SText(text, new PointF(x + 10f, y + 37 + 5), 0.345f, Color.White, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left);
-                descriptionText.Wrap = Width;
-                SSprite descriptionBg = new SSprite(new TextureAsset("commonmenu", "gradient_bgd"), new PointF(x - 2f, y + 37 + 1), new SizeF(Width, (descriptionText.LineCount * (descriptionText.LineHeight + 5)) + (descriptionText.LineCount - 1) + 10), Color.FromArgb(155, 255, 255, 255));
+                new SRectangle(new PointF(x - 2f, y + 1), new SizeF(Width, 2.5f), Color.Black).Draw();
+                SText descriptionText = new SText(text, new PointF(x + 10f, y + 5), 0.345f, Color.White, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left);
+                descriptionText.Wrap = Width - 10;
+                SSprite descriptionBg = new SSprite(new TextureAsset("commonmenu", "gradient_bgd"), new PointF(x - 2f, y), new SizeF(Width, (descriptionText.LineCount * (descriptionText.LineHeight + 5)) + (descriptionText.LineCount - 1) + 10), Color.FromArgb(155, 255, 255, 255));
                 descriptionBg.Draw();
                 descriptionText.Draw();
             }
@@ -263,21 +301,23 @@ namespace BillsyLiamGTA.UI.Menu
                 Function.Call(Hash.SET_MOUSE_CURSOR_THIS_FRAME);
             }
 
+            InstructionalButtons?.Draw();
+
             PointF safe = SafezoneTools.SafezoneBounds;
             if (BannerEnabled)
             {
                 new SSprite(BannerTexture, new PointF(safe.X - 2f, safe.Y), BannerSize, BannerColor).Draw();
-                if (Glare)
-                {
-
-                }
                 new SText(Title, new PointF(safe.X + 10, safe.Y + BannerSize.Height / 5), 0.9f, TitleColor, TitleFont, SText.eTextAlignments.Left).Draw();
+                if (GlareEffectEnabled && GlareEffectScaleform != null)
+                {
+                    GlareEffectScaleform.Draw();
+                }
             }
             
             new SRectangle(new PointF(safe.X - 2f, safe.Y + (BannerEnabled ? BannerSize.Height : 0)), new SizeF(BannerSize.Width, 37), Color.Black).Draw();
-            new SText(Subtitle.ToUpper(), new PointF(safe.X + 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 4), 0.345f, SubtitleColor, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left).Draw();
-            new SText($"{CurrentSelection + 1}/{Items?.Count}", new PointF(safe.X + HeaderSize.Width - 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 4), 0.345f, Color.White, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Right).Draw();
-            float y = BannerSize.Height + HeaderSize.Height;
+            new SText(Subtitle.ToUpper(), new PointF(safe.X + 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 5), 0.345f, SubtitleColor, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left).Draw();
+            new SText($"{CurrentSelection + 1}/{Items?.Count}", new PointF(safe.X + Width - 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 5), 0.345f, Color.White, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Right).Draw();
+            float y = CalculatedHeight;
             if (ParentPanel != null)
             {
                 ParentPanel.Draw(y);
@@ -313,9 +353,17 @@ namespace BillsyLiamGTA.UI.Menu
                     y += Items[i].Height;
                 }
 
+                if (Items.Count > MaxOnScreenItems)
+                {
+                    y += ScrollIndicatorMargin;
+                    new SRectangle(new PointF(safe.X - 2f, safe.Y + y), new SizeF(Width, 40), Color.FromArgb(200, 0, 0, 0)).Draw();
+                    new SSprite(new TextureAsset("commonmenu", "shop_arrows_upanddown"), new PointF(safe.X + (Width / 2) - 30, safe.Y + y - 5), new SizeF(50f, 50f)).Draw();
+                    y += 40;
+                }
+
                 if (SelectedItem != null)
                 {
-                    DrawDescription(SelectedItem.Description, safe.X, y);
+                    DrawDescription(SelectedItem.Description, safe.X, safe.Y + y);
                 }
             }
             else
@@ -406,6 +454,21 @@ namespace BillsyLiamGTA.UI.Menu
                     item.Parent = null;
                     Items.Remove(item);
                 }
+            }
+        }
+
+        public void AddParentPanel(UIMenuParentPanel panel)
+        {
+            panel.Parent = this;
+            ParentPanel = panel;
+        }
+
+        public void RemoveParentPanel()
+        {
+            if (ParentPanel != null)
+            {
+                ParentPanel.Parent = null;
+                ParentPanel = null;
             }
         }
 

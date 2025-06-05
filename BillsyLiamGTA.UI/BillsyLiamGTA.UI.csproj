@@ -65,7 +65,8 @@
     <Compile Include="Elements\SText.cs" />
     <Compile Include="Elements\TextureAsset.cs" />
     <Compile Include="Elements\MenuHandler.cs" />
-    <Compile Include="Menus\TestMenuScript.cs" />
+    <Compile Include="Menus\UIMenuSliderItemValueChangedArgs.cs" />
+    <Compile Include="Menus\UIMenuSliderItemValueChangedEventHandler.cs" />
     <Compile Include="Menus\UIMenuClosedArgs.cs" />
     <Compile Include="Menus\UIMenuClosedEventHandler.cs" />
     <Compile Include="Menus\UIMenuOpenedArgs.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Menus\UIMenuSliderItem.cs" />
     <Compile Include="Scaleform\InstructionalButtons.cs" />
     <Compile Include="Scaleform\MidsizedMessage.cs" />
+    <Compile Include="Scaleform\MpMenuGlare.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -52,7 +52,7 @@ namespace BillsyLiamGTA.UI.Scaleform
             int time = ScreenTime;
             while (Game.GameTime < start + time)
             {
-                RenderFullscreen();
+                Draw();
                 Script.Wait(0);
             }
             Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "Shard_Disappear", "GTAO_FM_Events_Soundset", false);
@@ -61,7 +61,7 @@ namespace BillsyLiamGTA.UI.Scaleform
             time = (int)(AnimOutSpeed * 10000);
             while (Game.GameTime < start + time)
             {
-                RenderFullscreen();
+                Draw();
                 Script.Wait(0);
             }
             Dispose();

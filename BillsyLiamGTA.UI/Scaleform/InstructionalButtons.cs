@@ -1,10 +1,11 @@
 ﻿using BillsyLiamGTA.UI.Elements;
 using GTA.Native;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace BillsyLiamGTA.UI.Scaleform
 {
-    public class InstructionalButtonContainer
+    public struct InstructionalButtonContainer
     {
         public InputControl Button { get; set; }
 
@@ -19,17 +20,46 @@ namespace BillsyLiamGTA.UI.Scaleform
 
     public class InstructionalButtons : BaseScaleform
     {
-        public List<InstructionalButtonContainer> Containers;
+        #region Fields
+
+        private List<InstructionalButtonContainer> Containers;
+
+        public Color BackgroundColor { get; set; } = Color.FromArgb(155, 0, 0, 0);
+
+        #endregion
 
         public InstructionalButtons() : base("INSTRUCTIONAL_BUTTONS")
         {
             Containers = new List<InstructionalButtonContainer>();
         }
 
-        public void Draw()
+        public void AddContainer(InstructionalButtonContainer container)
         {
+            if (Containers != null)
+            {
+                if (!Containers.Contains(container))
+                {
+                    Containers.Add(container);
+                }
+            }
+        }
+
+        public void RemoveContainer(InstructionalButtonContainer container)
+        {
+            if (Containers != null)
+            {
+                if (Containers.Contains(container))
+                {
+                    Containers.Remove(container);
+                }
+            }
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
             CallFunction("CLEAR_ALL");
-            CallFunction("CREATE_CONTAINER");
+            CallFunction("TOGGLE_MOUSE_BUTTONS", 0);
             if (Containers != null)
             {
                 if (Containers.Count > 0)
@@ -40,30 +70,7 @@ namespace BillsyLiamGTA.UI.Scaleform
                     }
                 }
             }
-            CallFunction("DRAW_INSTRUCTIONAL_BUTTONS", 0);
-            RenderFullscreen();
-        }
-
-        public void AddButton(InstructionalButtonContainer button)
-        {
-            if (Containers != null)
-            {
-                if (!Containers.Contains(button))
-                {
-                    Containers.Add(button);
-                }
-            }
-        }
-
-        public void RemoveButton(InstructionalButtonContainer button)
-        {
-            if (Containers != null)
-            {
-                if (Containers.Contains(button))
-                {
-                    Containers.Remove(button);
-                }
-            }
+            CallFunction("DRAW_INSTRUCTIONAL_BUTTONS");
         }
     }
 }

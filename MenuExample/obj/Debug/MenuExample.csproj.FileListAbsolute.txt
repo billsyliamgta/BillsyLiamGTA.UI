@@ -1,0 +1,11 @@
+C:\Users\Liam\source\repos\MenuExample\bin\Debug\MenuExample.dll
+C:\Users\Liam\source\repos\MenuExample\bin\Debug\MenuExample.pdb
+C:\Users\Liam\source\repos\MenuExample\bin\Debug\BillsyLiamGTA.UI.dll
+C:\Users\Liam\source\repos\MenuExample\bin\Debug\ScriptHookVDotNet3.dll
+C:\Users\Liam\source\repos\MenuExample\bin\Debug\BillsyLiamGTA.UI.pdb
+C:\Users\Liam\source\repos\MenuExample\bin\Debug\ScriptHookVDotNet3.pdb
+C:\Users\Liam\source\repos\MenuExample\obj\Debug\MenuExample.csproj.AssemblyReference.cache
+C:\Users\Liam\source\repos\MenuExample\obj\Debug\MenuExample.csproj.CoreCompileInputs.cache
+C:\Users\Liam\source\repos\MenuExample\obj\Debug\MenuExam.52A65A9B.Up2Date
+C:\Users\Liam\source\repos\MenuExample\obj\Debug\MenuExample.dll
+C:\Users\Liam\source\repos\MenuExample\obj\Debug\MenuExample.pdb

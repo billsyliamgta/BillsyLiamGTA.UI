@@ -11,8 +11,6 @@ namespace BillsyLiamGTA.UI.Elements
     {
         private static List<UIMenu> pool;
 
-        private static InstructionalButtons InstructionalButtons;
-
         public MenuHandler()
         {
             pool = new List<UIMenu>();

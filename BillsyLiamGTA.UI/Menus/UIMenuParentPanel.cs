@@ -84,8 +84,8 @@ namespace BillsyLiamGTA.UI.Menu
 
             PointF safe = SafezoneTools.SafezoneBounds;
             new SSprite(new TextureAsset("pause_menu_pages_char_mom_dad", "mumdadbg"), new PointF(safe.X - 2f, safe.Y + y), new SizeF(435, 235)).Draw();
-            new SSprite(new TextureAsset("char_creator_portraits", getMomTextureName()), new PointF(safe.X - 2f + 20, safe.Y + y), new SizeF(225, 235), Color.FromArgb(AnimAlpha, 255, 255, 255)).Draw();
-            new SSprite(new TextureAsset("char_creator_portraits", getDadTextureName()), new PointF(safe.X - 2f + 180, safe.Y + y), new SizeF(225, 235), Color.FromArgb(AnimAlpha, 255, 255, 255)).Draw();
+            new SSprite(new TextureAsset("char_creator_portraits", getMomTextureName()), new PointF(safe.X - 2f + 5, safe.Y + y), new SizeF(225, 235), Color.FromArgb(AnimAlpha, 255, 255, 255)).Draw();
+            new SSprite(new TextureAsset("char_creator_portraits", getDadTextureName()), new PointF(safe.X - 2f + 200, safe.Y + y), new SizeF(225, 235), Color.FromArgb(AnimAlpha, 255, 255, 255)).Draw();
             new SSprite(new TextureAsset("pause_menu_pages_char_mom_dad", "vignette"), new PointF(safe.X - 2f, safe.Y + y), new SizeF(435, 235)).Draw();
         }
 

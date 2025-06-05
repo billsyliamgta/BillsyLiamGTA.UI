@@ -35,7 +35,7 @@ namespace BillsyLiamGTA.UI.Menu
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            SSprite checkbox = new SSprite(new TextureAsset("commonmenu", _txn), new PointF(x + width - 50, y + width + 30), new SizeF(50, 50));
+            SSprite checkbox = new SSprite(new TextureAsset("commonmenu", _txn), new PointF(x + width - 50, y - 6), new SizeF(50, 50));
             if (checkbox.IsCursorAbove() && Input.IsControlJustPressed(InputControl.Attack) || IsSelected && Input.IsControlJustPressed(InputControl.FrontendAccept))
             {
                 _txn = !IsTicked ? "shop_box_tick" : "shop_box_blank";

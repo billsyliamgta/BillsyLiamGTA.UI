@@ -61,7 +61,7 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
 
-        public void RenderFullscreen()
+        public virtual void Draw()
         {
             if (IsLoaded)
             {
@@ -69,7 +69,7 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
 
-        public void RenderFullscreenMasked(BaseScaleform secondScaleform)
+        public virtual void DrawMasked(BaseScaleform secondScaleform)
         {
             if (IsLoaded)
             {
@@ -77,7 +77,7 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
 
-        public void RenderScreenSpace(PointF position, SizeF size)
+        public virtual void DrawAt(PointF position, SizeF size)
         {
             if (IsLoaded)
             {
