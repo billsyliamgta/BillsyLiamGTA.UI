@@ -1,6 +1,6 @@
 # UIMenu
 
-## Creating a Menu with a banner.
+## Creating a Menu with a Banner
 
 ```
 Menu = new UIMenu("Menu Example", "Meow Meow Meow");
