@@ -19,6 +19,7 @@ Menu.AddItem(CheckboxItem);
 Menu.AddItem(ListItem);
 Menu.AddItem(SliderItem);
 Menu.AddParentPanel(new UIMenuParentPanel());
+// do not do this in a loop as it will keep loading the scaleform(s) etc.
 Menu.Visible = true;
 
 ```
