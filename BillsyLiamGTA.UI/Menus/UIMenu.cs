@@ -457,6 +457,22 @@ namespace BillsyLiamGTA.UI.Menu
             }
         }
 
+        public void AddItems(params UIMenuBaseItem items)
+        {
+            foreach (UIMenuBaseItem item in items)
+            {
+                AddItem(item);        
+            }
+        }
+
+        public void RemoveItems(params UIMenuBaseItem items)
+        {
+            foreach (UIMenuBaseItem item in items)
+            {
+                RemoveItem(item);        
+            }
+        }
+
         public void AddParentPanel(UIMenuParentPanel panel)
         {
             panel.Parent = this;
