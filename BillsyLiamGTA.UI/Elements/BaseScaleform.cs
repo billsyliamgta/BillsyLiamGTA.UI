@@ -48,7 +48,7 @@ namespace BillsyLiamGTA.UI.Elements
         /// <summary>
         /// Set the scaleform movie to be no longer needed.
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (IsLoaded)
             {

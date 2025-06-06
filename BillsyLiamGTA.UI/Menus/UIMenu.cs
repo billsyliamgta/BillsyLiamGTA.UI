@@ -445,6 +445,17 @@ namespace BillsyLiamGTA.UI.Menu
             }
         }
 
+        public void AddItems(params UIMenuBaseItem[] items)
+        {
+            if (items.Length > 0)
+            {
+                foreach (UIMenuBaseItem item in items)
+                {
+                    AddItem(item);
+                }
+            }
+        }
+
         public void RemoveItem(UIMenuBaseItem item)
         {
             if (Items != null)
@@ -457,19 +468,14 @@ namespace BillsyLiamGTA.UI.Menu
             }
         }
 
-        public void AddItems(params UIMenuBaseItem items)
+        public void RemoveItems(params UIMenuBaseItem[] items)
         {
-            foreach (UIMenuBaseItem item in items)
+            if (items.Length > 0)
             {
-                AddItem(item);        
-            }
-        }
-
-        public void RemoveItems(params UIMenuBaseItem items)
-        {
-            foreach (UIMenuBaseItem item in items)
-            {
-                RemoveItem(item);        
+                foreach (UIMenuBaseItem item in items)
+                {
+                    RemoveItem(item);
+                }
             }
         }
 

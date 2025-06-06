@@ -65,6 +65,7 @@
     <Compile Include="Elements\SText.cs" />
     <Compile Include="Elements\TextureAsset.cs" />
     <Compile Include="Elements\MenuHandler.cs" />
+    <Compile Include="Elements\VariableTimer.cs" />
     <Compile Include="Menus\UIMenuSliderItemValueChangedArgs.cs" />
     <Compile Include="Menus\UIMenuSliderItemValueChangedEventHandler.cs" />
     <Compile Include="Menus\UIMenuClosedArgs.cs" />
@@ -87,6 +88,11 @@
     <Compile Include="Scaleform\InstructionalButtons.cs" />
     <Compile Include="Scaleform\MidsizedMessage.cs" />
     <Compile Include="Scaleform\MpMenuGlare.cs" />
+    <Compile Include="TimerBars\CountdownTimerBar.cs" />
+    <Compile Include="TimerBars\ProgressTimerBar.cs" />
+    <Compile Include="TimerBars\TextTimerBar.cs" />
+    <Compile Include="TimerBars\TimerBarPool.cs" />
+    <Compile Include="TimerBars\TimerBarBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,17 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using GTA.UI;
 using GTA.Native;
-using System.Runtime.CompilerServices;
 
 namespace BillsyLiamGTA.UI.Elements
 {
     public static class SafezoneTools
     {
+        #region Fields
+
+        public static SizeF ResolutionMaintainRatio
+        {
+            get
+            {
+                int screenw = Screen.Resolution.Width;
+                int screenh = Screen.Resolution.Height;
+                float ratio = (float)screenw / screenh;
+                float width = 1080f * ratio;
+                return new SizeF(width, 1080f);
+            }
+        }
+
         public static Point SafezoneBounds
         {
             get
@@ -40,9 +49,15 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
 
+        #endregion
+
+        #region Screen Scaling
+
         public static float ToXRelative(this float x) => x / (1080f * Screen.AspectRatio);
 
         public static float ToYRelative(this float y) => y / 1080f;
+
+        #endregion
 
         public static bool IsCursorInArea(PointF position, SizeF size)
         {

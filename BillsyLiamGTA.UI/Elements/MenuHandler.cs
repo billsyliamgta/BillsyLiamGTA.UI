@@ -11,6 +11,28 @@ namespace BillsyLiamGTA.UI.Elements
     {
         private static List<UIMenu> pool;
 
+        public static bool AreAnyMenusOpen
+        {
+            get
+            {
+                if (pool != null)
+                {
+                    if (pool.Count > 0)
+                    {
+                        foreach (UIMenu menu in pool)
+                        {
+                            if (menu.Visible)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
+        }
+
         public MenuHandler()
         {
             pool = new List<UIMenu>();
