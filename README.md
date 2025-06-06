@@ -1,5 +1,5 @@
 # A UI library for Grand Theft Auto V
-![](https://cdn.discordapp.com/attachments/1217537459412533300/1380308414877667398/20368C1.JPG?ex=684367e2&is=68421662&hm=f7915fc45d7c3b9898abdb9137af7f47029d1dc7b4f8af1d357fc55bc04934a6&)
+![](https://raw.githubusercontent.com/billsyliamgta/BillsyLiamGTA.UI/refs/heads/main/ui_example.JPG)
 Lightweight, fast and realiable menus with dynamic items, instructional buttons, events and full mouse support.
 
 # UIMenu
