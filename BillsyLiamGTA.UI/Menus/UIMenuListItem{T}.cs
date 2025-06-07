@@ -41,11 +41,11 @@ namespace BillsyLiamGTA.UI.Menu
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            SText text = new SText(Items[Index].ToString(), new PointF(x - (IsSelected ? 25 : 10) + width, y + 5), 0.345f, SuitableTextColor, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Right);
+            UIText text = new UIText(Items[Index].ToString(), new PointF(x - (IsSelected ? 25 : 10) + width, y + 5), 0.345f, SuitableTextColor, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Right);
             if (IsSelected)
             {
-                SSprite arrowRight = new SSprite(new TextureAsset("commonmenu", "arrowright"), new PointF(x - 28 + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
-                SSprite arrowLeft = new SSprite(new TextureAsset("commonmenu", "arrowleft"), new PointF(x - 45 - text.Width + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
+                UISprite arrowRight = new UISprite(new TextureAsset("commonmenu", "arrowright"), new PointF(x - 28 + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
+                UISprite arrowLeft = new UISprite(new TextureAsset("commonmenu", "arrowleft"), new PointF(x - 45 - text.Width + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
                 if (Input.IsControlJustPressed(InputControl.FrontendRight) || arrowRight.IsCursorAbove() && Input.IsControlJustPressed(InputControl.Attack))
                 {
                     GoRight();

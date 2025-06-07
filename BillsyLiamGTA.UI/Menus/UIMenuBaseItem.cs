@@ -69,13 +69,13 @@ namespace BillsyLiamGTA.UI.Menu
 
         public virtual void Draw(float x, float y, float width)
         {
-            SRectangle tab = new SRectangle(
+            UIRectangle tab = new UIRectangle(
                 new PointF(x, y),
                 new SizeF(width, Height),
                 SuitableTabColor
             );
             tab.Draw();
-            new SText(Title, new PointF(x + 10, y + 5), 0.345f, SuitableTextColor, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left).Draw();
+            new UIText(Title, new PointF(x + 10, y + 5), 0.345f, SuitableTextColor, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Left).Draw();
             if (IsSelected)
             {
                 if (Input.IsControlJustPressed(InputControl.FrontendAccept) || Input.IsControlJustPressed(InputControl.Attack) && SafezoneTools.IsCursorInArea(tab.Position, tab.Size))

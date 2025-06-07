@@ -139,7 +139,7 @@ namespace BillsyLiamGTA.UI.Menu
         /// <summary>
         /// The font of the menu's title.
         /// </summary>
-        public SText.eTextFonts TitleFont { get; set; } = SText.eTextFonts.FONT_CONDENSED;
+        public UIText.eTextFonts TitleFont { get; set; } = UIText.eTextFonts.FONT_CONDENSED;
         /// <summary>
         /// The title's text color.
         /// </summary>
@@ -266,10 +266,10 @@ namespace BillsyLiamGTA.UI.Menu
             y += DescriptionMargin;
             if (!string.IsNullOrEmpty(text))
             {
-                new SRectangle(new PointF(x - 2f, y + 1), new SizeF(Width, 2.5f), Color.Black).Draw();
-                SText descriptionText = new SText(text, new PointF(x + 10f, y + 5), 0.345f, Color.White, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left);
+                new UIRectangle(new PointF(x - 2f, y + 1), new SizeF(Width, 2.5f), Color.Black).Draw();
+                UIText descriptionText = new UIText(text, new PointF(x + 10f, y + 5), 0.345f, Color.White, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Left);
                 descriptionText.Wrap = Width - 10;
-                SSprite descriptionBg = new SSprite(new TextureAsset("commonmenu", "gradient_bgd"), new PointF(x - 2f, y), new SizeF(Width, (descriptionText.LineCount * (descriptionText.LineHeight + 5)) + (descriptionText.LineCount - 1) + 10), Color.FromArgb(155, 255, 255, 255));
+                UISprite descriptionBg = new UISprite(new TextureAsset("commonmenu", "gradient_bgd"), new PointF(x - 2f, y), new SizeF(Width, (descriptionText.LineCount * (descriptionText.LineHeight + 5)) + (descriptionText.LineCount - 1) + 10), Color.FromArgb(155, 255, 255, 255));
                 descriptionBg.Draw();
                 descriptionText.Draw();
             }
@@ -306,17 +306,17 @@ namespace BillsyLiamGTA.UI.Menu
             PointF safe = SafezoneTools.SafezoneBounds;
             if (BannerEnabled)
             {
-                new SSprite(BannerTexture, new PointF(safe.X - 2f, safe.Y), BannerSize, BannerColor).Draw();
-                new SText(Title, new PointF(safe.X + 10, safe.Y + BannerSize.Height / 5), 0.9f, TitleColor, TitleFont, SText.eTextAlignments.Left).Draw();
+                new UISprite(BannerTexture, new PointF(safe.X - 2f, safe.Y), BannerSize, BannerColor).Draw();
+                new UIText(Title, new PointF(safe.X + 10, safe.Y + BannerSize.Height / 5), 0.9f, TitleColor, TitleFont, UIText.eTextAlignments.Left).Draw();
                 if (GlareEffectEnabled && GlareEffectScaleform != null)
                 {
                     GlareEffectScaleform.Draw();
                 }
             }
             
-            new SRectangle(new PointF(safe.X - 2f, safe.Y + (BannerEnabled ? BannerSize.Height : 0)), new SizeF(BannerSize.Width, 37), Color.Black).Draw();
-            new SText(Subtitle.ToUpper(), new PointF(safe.X + 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 5), 0.345f, SubtitleColor, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Left).Draw();
-            new SText($"{CurrentSelection + 1}/{Items?.Count}", new PointF(safe.X + Width - 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 5), 0.345f, Color.White, SText.eTextFonts.FONT_STANDARD, SText.eTextAlignments.Right).Draw();
+            new UIRectangle(new PointF(safe.X - 2f, safe.Y + (BannerEnabled ? BannerSize.Height : 0)), new SizeF(BannerSize.Width, 37), Color.Black).Draw();
+            new UIText(Subtitle.ToUpper(), new PointF(safe.X + 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 5), 0.345f, SubtitleColor, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Left).Draw();
+            new UIText($"{CurrentSelection + 1}/{Items?.Count}", new PointF(safe.X + Width - 10, safe.Y + (BannerEnabled ? BannerSize.Height : 0) + 5), 0.345f, Color.White, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Right).Draw();
             float y = CalculatedHeight;
             if (ParentPanel != null)
             {
@@ -356,8 +356,8 @@ namespace BillsyLiamGTA.UI.Menu
                 if (Items.Count > MaxOnScreenItems)
                 {
                     y += ScrollIndicatorMargin;
-                    new SRectangle(new PointF(safe.X - 2f, safe.Y + y), new SizeF(Width, 40), Color.FromArgb(200, 0, 0, 0)).Draw();
-                    new SSprite(new TextureAsset("commonmenu", "shop_arrows_upanddown"), new PointF(safe.X + (Width / 2) - 30, safe.Y + y - 5), new SizeF(50f, 50f)).Draw();
+                    new UIRectangle(new PointF(safe.X - 2f, safe.Y + y), new SizeF(Width, 40), Color.FromArgb(200, 0, 0, 0)).Draw();
+                    new UISprite(new TextureAsset("commonmenu", "shop_arrows_upanddown"), new PointF(safe.X + (Width / 2) - 30, safe.Y + y - 5), new SizeF(50f, 50f)).Draw();
                     y += 40;
                 }
 

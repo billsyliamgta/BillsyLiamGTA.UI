@@ -60,9 +60,9 @@
     <Compile Include="Elements\Input.cs" />
     <Compile Include="Elements\SafezoneTools.cs" />
     <Compile Include="Elements\BaseScaleform.cs" />
-    <Compile Include="Elements\SRectangle.cs" />
-    <Compile Include="Elements\SSprite.cs" />
-    <Compile Include="Elements\SText.cs" />
+    <Compile Include="Elements\UIRectangle.cs" />
+    <Compile Include="Elements\UISprite.cs" />
+    <Compile Include="Elements\UIText.cs" />
     <Compile Include="Elements\TextureAsset.cs" />
     <Compile Include="Elements\MenuHandler.cs" />
     <Compile Include="Elements\VariableTimer.cs" />
@@ -88,11 +88,13 @@
     <Compile Include="Scaleform\InstructionalButtons.cs" />
     <Compile Include="Scaleform\MidsizedMessage.cs" />
     <Compile Include="Scaleform\MpMenuGlare.cs" />
-    <Compile Include="TimerBars\CountdownTimerBar.cs" />
-    <Compile Include="TimerBars\ProgressTimerBar.cs" />
-    <Compile Include="TimerBars\TextTimerBar.cs" />
-    <Compile Include="TimerBars\TimerBarPool.cs" />
-    <Compile Include="TimerBars\TimerBarBase.cs" />
+    <Compile Include="Timerbars\BaseTimerbar.cs" />
+    <Compile Include="Timerbars\CheckpointTimerbar.cs" />
+    <Compile Include="Timerbars\CountdownTimerbar.cs" />
+    <Compile Include="Timerbars\ProgressTimerbar.cs" />
+    <Compile Include="Timerbars\TextTimerbar.cs" />
+    <Compile Include="Timerbars\TimerbarHelpers.cs" />
+    <Compile Include="Timerbars\TimerbarPool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

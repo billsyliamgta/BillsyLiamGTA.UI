@@ -61,13 +61,13 @@ namespace BillsyLiamGTA.UI.Menu
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            new SRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0), y + 14), new SizeF(200f, 10.25f), Color.FromArgb(155, SliderColor.R, SliderColor.G, SliderColor.B)).Draw();
-            new SRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0) + (100 * Value), y + 14), new SizeF(100f, 10.25f), Color.FromArgb(255, SliderColor.R, SliderColor.G, SliderColor.B)).Draw();
-            new SRectangle(new PointF(x + width - 110 - (GenderIconsEnabled ? 25 : 0), y + 10), new SizeF(3f, 17f), Color.White).Draw();
+            new UIRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0), y + 14), new SizeF(200f, 10.25f), Color.FromArgb(155, SliderColor.R, SliderColor.G, SliderColor.B)).Draw();
+            new UIRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0) + (100 * Value), y + 14), new SizeF(100f, 10.25f), Color.FromArgb(255, SliderColor.R, SliderColor.G, SliderColor.B)).Draw();
+            new UIRectangle(new PointF(x + width - 110 - (GenderIconsEnabled ? 25 : 0), y + 10), new SizeF(3f, 17f), Color.White).Draw();
             if (GenderIconsEnabled)
             {
-                new SSprite(new TextureAsset("mpleaderboard", "leaderboard_female_icon"), new PointF(x + width - 275, y), new SizeF(40f, 40f), SuitableGenderIconsColor).Draw();
-                new SSprite(new TextureAsset("mpleaderboard", "leaderboard_male_icon"), new PointF(x + width - 35, y), new SizeF(40f, 40f), SuitableGenderIconsColor).Draw();
+                new UISprite(new TextureAsset("mpleaderboard", "leaderboard_female_icon"), new PointF(x + width - 275, y), new SizeF(40f, 40f), SuitableGenderIconsColor).Draw();
+                new UISprite(new TextureAsset("mpleaderboard", "leaderboard_male_icon"), new PointF(x + width - 35, y), new SizeF(40f, 40f), SuitableGenderIconsColor).Draw();
             }
             if (IsSelected)
             {

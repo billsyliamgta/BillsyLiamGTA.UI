@@ -2,6 +2,8 @@
 using GTA;
 using BillsyLiamGTA.UI.Menu;
 using System.Drawing;
+using BillsyLiamGTA.UI.Timerbars;
+using System.Collections.Generic;
 
 namespace MenuExample
 {
@@ -27,6 +29,14 @@ namespace MenuExample
         UIMenuListItem<string> ListItem;
 
         UIMenuSliderItem SliderItem;
+
+        TextTimerbar TextTimerbar;
+
+        ProgressTimerbar ProgressTimerbar;
+
+        CountdownTimerbar CountdownTimerbar;
+
+        CheckpointTimerbar CheckpointTimerbar;
 
         #endregion
 
@@ -56,9 +66,18 @@ namespace MenuExample
             if (Menu == null)
             {
                 ShowMenu();
+                TextTimerbar = new TextTimerbar("TEXT", false);
+                ProgressTimerbar = new ProgressTimerbar("PROGRESS", 0.1f);
+                CountdownTimerbar = new CountdownTimerbar("TIME REMAINING", 120000);
+                List<CheckpointTimerbar.Checkpoint> checkpoints = new List<CheckpointTimerbar.Checkpoint>();
+                for (int i = 0; i < 5; i++)
+                {
+                    checkpoints.Add(new CheckpointTimerbar.Checkpoint(Color.FromArgb(255, 255, 255, 255), Color.FromArgb(255, 114, 204, 114), Color.FromArgb(255, 224, 50, 50), i < 2 ? CheckpointTimerbar.CheckpointState.InProgress : CheckpointTimerbar.CheckpointState.Default));
+                }
+                CheckpointTimerbar = new CheckpointTimerbar("CHECKPOINTS", checkpoints);
             }
             else if (Menu != null)
-            {                
+            {
                 if (Game.IsControlJustPressed(Control.Context))
                 {
                     Menu.Visible = !Menu.Visible;
@@ -68,6 +87,8 @@ namespace MenuExample
                 {
                     Menu.BannerEnabled = false;
                 }
+
+                ProgressTimerbar.Progress += 0.001f;
             }
         }
     }
