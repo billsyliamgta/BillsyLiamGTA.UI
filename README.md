@@ -92,3 +92,16 @@ Gender icons can be toggled like the GTA Online character creator heritage menu,
 
 # Timerbars
 ![](https://raw.githubusercontent.com/billsyliamgta/BillsyLiamGTA.UI/refs/heads/main/timerbars.png)
+
+Example:
+```
+TextTimerbar = new TextTimerbar("TEXT", false);
+ProgressTimerbar = new ProgressTimerbar("PROGRESS", 0.1f);
+CountdownTimerbar = new CountdownTimerbar("TIME REMAINING", 120000);
+List<CheckpointTimerbar.Checkpoint> checkpoints = new List<CheckpointTimerbar.Checkpoint>();
+for (int i = 0; i < 5; i++)
+{
+    checkpoints.Add(new CheckpointTimerbar.Checkpoint(Color.FromArgb(255, 255, 255, 255), Color.FromArgb(255, 114, 204, 114), Color.FromArgb(255, 224, 50, 50), i < 2 ? CheckpointTimerbar.CheckpointState.InProgress : CheckpointTimerbar.CheckpointState.Default));
+}
+CheckpointTimerbar = new CheckpointTimerbar("CHECKPOINTS", checkpoints);
+```
