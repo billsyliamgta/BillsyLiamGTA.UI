@@ -91,4 +91,4 @@ SliderItem.ValueChanged += (sender, e) =>
 Gender icons can be toggled like the GTA Online character creator heritage menu, by ```SliderItem.GenderIconsEnabled``` boolean.
 
 # Timerbars
-![](https://i.imgur.com/tXApXUW.gif)
+![](https://raw.githubusercontent.com/billsyliamgta/BillsyLiamGTA.UI/refs/heads/main/timerbars.png)
