@@ -1,4 +1,11 @@
-﻿namespace BillsyLiamGTA.UI.Timerbars
+﻿using GTA.Native;
+using GTA.UI;
+using GTA;
+using static BillsyLiamGTA.UI.Elements.UIText;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
+
+namespace BillsyLiamGTA.UI.Timerbars
 {
     public static class TimerbarHelpers
     {
@@ -24,7 +31,7 @@
 
         public const float bgThinOffset = 0.012f;
 
-        public const float textOffset = -0.011f;
+        public const float textOffset = -0.0113f;
 
         public const float playerTitleOffset = -0.005f;
 
@@ -62,22 +69,39 @@
 
         public const float playerTitleScale = 0.447f;
 
+        public const float takeBarTextOffset = -0.003f;
+
         #endregion
 
         #region Methods
 
-        public static float Clamp(float value, float min, float max)
+        public static void DrawText(string text, float x, float y, int font, float scale, Color color, int justification, float wrap, bool shadow = false, bool outline = false)
         {
-            if (value < min)
-            {
-                return min;
-            }
-            else if (value > max)
-            {
-                return max;
-            }
+            Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING");
+            Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, text);
+            Function.Call(Hash.SET_TEXT_JUSTIFICATION, justification);
+            Function.Call(Hash.SET_TEXT_WRAP, 0.0, wrap);
+            Function.Call(Hash.SET_TEXT_FONT, font);
+            Function.Call(Hash.SET_TEXT_SCALE, 0.0, scale);
+            Function.Call(Hash.SET_TEXT_COLOUR, color.R, color.G, color.B, color.A);
+            if (outline) Function.Call(Hash.SET_TEXT_OUTLINE);
+            if (shadow) Function.Call(Hash.SET_TEXT_DROP_SHADOW);
+            Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, x, y, 0);
+        }
 
-            return value;
+        public static void DrawDollars(int dollars, float x, float y, int font, float scale, Color color, int justification, float wrap, bool shadow = false, bool outline = false)
+        {
+            Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "ESDOLLA");
+            Function.Call(Hash.ADD_TEXT_COMPONENT_INTEGER, dollars);
+            Function.Call((Hash)0x0E4C749FF9DE9CC4, dollars, true);
+            Function.Call(Hash.SET_TEXT_JUSTIFICATION, justification);
+            Function.Call(Hash.SET_TEXT_WRAP, 0.0, wrap);
+            Function.Call(Hash.SET_TEXT_FONT, font);
+            Function.Call(Hash.SET_TEXT_SCALE, 0.0, scale);
+            Function.Call(Hash.SET_TEXT_COLOUR, color.R, color.G, color.B, color.A);
+            if (outline) Function.Call(Hash.SET_TEXT_OUTLINE);
+            if (shadow) Function.Call(Hash.SET_TEXT_DROP_SHADOW);
+            Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, x, y, 0);
         }
 
         #endregion

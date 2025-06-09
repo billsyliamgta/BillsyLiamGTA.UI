@@ -81,7 +81,7 @@ namespace BillsyLiamGTA.UI.Menu
                 if (Input.IsControlJustPressed(InputControl.FrontendAccept) || Input.IsControlJustPressed(InputControl.Attack) && SafezoneTools.IsCursorInArea(tab.Position, tab.Size))
                 {
                     Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
-                    Activated?.Invoke(this, new UIMenuItemActivatedArgs());
+                    Activated?.Invoke(this, new UIMenuItemActivatedArgs(this));
                 }
             }
         }

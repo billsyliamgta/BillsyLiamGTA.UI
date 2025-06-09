@@ -121,13 +121,7 @@ namespace BillsyLiamGTA.UI.Elements
 
         #region Methods
 
-        [Obsolete("Use the DrawScaled() method instead.")]
         public void Draw()
-        {
-            DrawScaled();
-        }
-
-        public void DrawScaled()
         {
             int screenw = Screen.Resolution.Width;
             int screenh = Screen.Resolution.Height;

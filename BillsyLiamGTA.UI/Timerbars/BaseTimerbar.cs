@@ -1,17 +1,25 @@
 ﻿using GTA.Native;
+using System.Drawing;
 using static BillsyLiamGTA.UI.Timerbars.TimerbarHelpers;
 
 namespace BillsyLiamGTA.UI.Timerbars
 {
+    /// <summary>
+    /// A base class for creating Timerbars.
+    /// </summary>
     public abstract class BaseTimerbar
     {
         #region Fields
-
+        /// <summary>
+        /// If the timerbar is thin or not.
+        /// </summary>
         public bool Thin { get; set; } = false;
-
+        /// <summary>
+        /// Title of the timerbar.
+        /// </summary>
         public string Title { get; set; }
 
-        public bool Visible { get; set; } = true;
+        public Color OverlayColor { get; set; }
 
         #endregion
 
@@ -28,14 +36,11 @@ namespace BillsyLiamGTA.UI.Timerbars
             // draw the background
             Function.Call(Hash.DRAW_SPRITE, "timerbars", "all_black_bg", bgBaseX, y, timerBarWidth, Thin ? timerBarThinHeight : timerBarHeight, 0, 255, 255, 255, 140, false, 0);
             // draw the text
-            Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING");
-            Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, Title);
-            Function.Call(Hash.SET_TEXT_JUSTIFICATION, 2);
-            Function.Call(Hash.SET_TEXT_WRAP, 0.0, titleWrap);
-            Function.Call(Hash.SET_TEXT_FONT, 0);
-            Function.Call(Hash.SET_TEXT_SCALE, 0.0, titleScale + 0.1f);
-            Function.Call(Hash.SET_TEXT_COLOUR, 240, 240, 240, 255);
-            Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, initialX, y - 0.011f, 0);
+            if (OverlayColor != null)
+            {
+                Function.Call(Hash.DRAW_SPRITE, "timerbars", "all_white_bg", bgBaseX, y, timerBarWidth, Thin ? timerBarThinHeight : timerBarHeight, 0, OverlayColor.R, OverlayColor.G, OverlayColor.B, 140, false, 0);
+            }
+            DrawText(Title, initialX, y - 0.011f, 0, titleScale + 0.1f, Color.FromArgb(255, 240, 240, 240), 2, titleWrap);
         }
     }
 }

@@ -3,8 +3,8 @@ using GTA.UI;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
-using static BillsyLiamGTA.UI.Timerbars.TimerbarHelpers;
 using BillsyLiamGTA.UI.Elements;
+using static BillsyLiamGTA.UI.Timerbars.TimerbarHelpers;
 
 namespace BillsyLiamGTA.UI.Timerbars
 {
@@ -55,6 +55,7 @@ namespace BillsyLiamGTA.UI.Timerbars
                     Function.Call(Hash.REQUEST_STREAMED_TEXTURE_DICT, "timerbars", false);
                     Wait(0);
                 }
+
                 Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 6);
                 Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 7);
                 Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 8);

@@ -39,7 +39,7 @@ namespace BillsyLiamGTA.UI.Menu
                         GlareEffectScaleform.Load();
                     }
                     InstructionalButtons?.Load();
-                    MenuOpened?.Invoke(this, new UIMenuOpenedArgs());
+                    MenuOpened?.Invoke(this, new UIMenuOpenedArgs(this));
                 }
                 else
                 {
@@ -47,7 +47,7 @@ namespace BillsyLiamGTA.UI.Menu
                     GlareEffectScaleform = null;
                     InstructionalButtons?.Dispose();
                     BannerTexture?.Dispose();
-                    MenuClosed?.Invoke(this, new UIMenuClosedArgs());
+                    MenuClosed?.Invoke(this, new UIMenuClosedArgs(this));
                 }
 
                 _visible = value;
@@ -220,11 +220,17 @@ namespace BillsyLiamGTA.UI.Menu
         /// The previous menu if this has been opened from <see cref="UIMenuSubMenuItem"/>.
         /// </summary>
         public UIMenu PreviousMenu { get; set; }
-
+        /// <summary>
+        /// The menu opened event handler.
+        /// </summary>
         public UIMenuOpenedEventHandler MenuOpened;
-
+        /// <summary>
+        /// The menu closed event handler.
+        /// </summary>
         public UIMenuClosedEventHandler MenuClosed;
-
+        /// <summary>
+        /// The object for handling instructional buttons.
+        /// </summary>
         public InstructionalButtons InstructionalButtons { get; set; }
 
         #endregion
@@ -234,7 +240,7 @@ namespace BillsyLiamGTA.UI.Menu
         public UIMenu(string title, string subtitle, params UIMenuBaseItem[] items)
         {
             Items = new List<UIMenuBaseItem>();
-            Items.AddRange(items);
+            AddItems(items);
             Title = title;
             Subtitle = subtitle;
             BannerTexture = new TextureAsset("commonmenu", "interaction_bgd");
@@ -247,7 +253,7 @@ namespace BillsyLiamGTA.UI.Menu
         public UIMenu(string title, string subtitle, TextureAsset bannerTexture, params UIMenuBaseItem[] items)
         {
             Items = new List<UIMenuBaseItem>();
-            Items.AddRange(items);
+            AddItems(items);
             Title = title;
             Subtitle = subtitle;
             BannerTexture = bannerTexture;
@@ -260,13 +266,17 @@ namespace BillsyLiamGTA.UI.Menu
         #endregion
 
         #region Methods
-
+        /// <summary>
+        /// A method for drawing the current item's description if the string is not null or empty.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         private void DrawDescription(string text, float x, float y)
         {
             y += DescriptionMargin;
             if (!string.IsNullOrEmpty(text))
             {
-                new UIRectangle(new PointF(x - 2f, y + 1), new SizeF(Width, 2.5f), Color.Black).Draw();
                 UIText descriptionText = new UIText(text, new PointF(x + 10f, y + 5), 0.345f, Color.White, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Left);
                 descriptionText.Wrap = Width - 10;
                 UISprite descriptionBg = new UISprite(new TextureAsset("commonmenu", "gradient_bgd"), new PointF(x - 2f, y), new SizeF(Width, (descriptionText.LineCount * (descriptionText.LineHeight + 5)) + (descriptionText.LineCount - 1) + 10), Color.FromArgb(155, 255, 255, 255));
@@ -274,7 +284,6 @@ namespace BillsyLiamGTA.UI.Menu
                 descriptionText.Draw();
             }
         }
-
         /// <summary>
         /// Draw's the menu. This isn't needed by the developer, because <see cref="MenuHandler"/> will handle the drawing.
         /// </summary>
@@ -368,7 +377,7 @@ namespace BillsyLiamGTA.UI.Menu
             }
             else
             {
-                DrawDescription("Are you feeling a bit silly? This is an empty UIMenu, no items have been added.", safe.X, y);
+                DrawDescription("Are you feeling a bit silly? This is an empty UIMenu, no items have been added.", safe.X, safe.Y + y);
             }
             if (Input.IsControlJustPressed(InputControl.FrontendCancel))
             {
@@ -400,13 +409,17 @@ namespace BillsyLiamGTA.UI.Menu
                 GoUp();
             }
         }
-
+        /// <summary>
+        /// Closes the menu.
+        /// </summary>
         public void Back()
         {
             Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "CANCEL", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
             Visible = false;
         }
-
+        /// <summary>
+        /// Simulates the input of going down the menu.
+        /// </summary>
         public void GoDown()
         {
             Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
@@ -419,7 +432,9 @@ namespace BillsyLiamGTA.UI.Menu
                 CurrentSelection = 0;
             }
         }
-
+        /// <summary>
+        /// Simulates the input of going up the menu.
+        /// </summary>
         public void GoUp()
         {
             Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
@@ -432,7 +447,10 @@ namespace BillsyLiamGTA.UI.Menu
                 CurrentSelection = Items.Count - 1;
             }
         }
-
+        /// <summary>
+        /// Add's the item into the menu if its not already present.
+        /// </summary>
+        /// <param name="item"></param>
         public void AddItem(UIMenuBaseItem item)
         {
             if (Items != null)
@@ -444,7 +462,10 @@ namespace BillsyLiamGTA.UI.Menu
                 }
             }
         }
-
+        /// <summary>
+        /// Similar to <see cref="AddItem(UIMenuBaseItem)"/> except this method adds multiple items instead of one.
+        /// </summary>
+        /// <param name="items"></param>
         public void AddItems(params UIMenuBaseItem[] items)
         {
             if (items.Length > 0)
@@ -455,7 +476,10 @@ namespace BillsyLiamGTA.UI.Menu
                 }
             }
         }
-
+        /// <summary>
+        /// Remove's the item from the menu if its already present.
+        /// </summary>
+        /// <param name="item"></param>
         public void RemoveItem(UIMenuBaseItem item)
         {
             if (Items != null)
@@ -467,7 +491,10 @@ namespace BillsyLiamGTA.UI.Menu
                 }
             }
         }
-
+        /// <summary>
+        /// Similar to <see cref="RemoveItem(UIMenuBaseItem)"/> except this method removes multiple items instead of one.
+        /// </summary>
+        /// <param name="items"></param>
         public void RemoveItems(params UIMenuBaseItem[] items)
         {
             if (items.Length > 0)
@@ -478,13 +505,18 @@ namespace BillsyLiamGTA.UI.Menu
                 }
             }
         }
-
+        /// <summary>
+        /// Add's a parent panel to the menu.
+        /// </summary>
+        /// <param name="panel"></param>
         public void AddParentPanel(UIMenuParentPanel panel)
         {
             panel.Parent = this;
             ParentPanel = panel;
         }
-
+        /// <summary>
+        /// Remove's the menu's parent panel if there is one.
+        /// </summary>
         public void RemoveParentPanel()
         {
             if (ParentPanel != null)
