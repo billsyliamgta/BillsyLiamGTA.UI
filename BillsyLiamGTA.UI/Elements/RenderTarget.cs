@@ -53,7 +53,9 @@ namespace BillsyLiamGTA.UI.Elements
         }
         
         #endregion
-        
+
+        #region Methods
+            
         public void Release()
         {
             if (Function.Call<bool>(Hash.IS_NAMED_RENDERTARGET_REGISTERED, Name))
@@ -61,5 +63,7 @@ namespace BillsyLiamGTA.UI.Elements
                 Function.Call(Hash.RELEASE_NAMED_RENDERTARGET, Name);
             }
         }
+
+        #endregion
     }
 }
