@@ -213,7 +213,15 @@ namespace BillsyLiamGTA.UI.Menu
         {
             get
             {
-                return Items[CurrentSelection];
+                if (Items != null)
+                {
+                    if (Items.Count > 0)
+                    {
+                        return Items[CurrentSelection];
+                    }
+                }
+
+                return null;
             }
         }
         /// <summary>
