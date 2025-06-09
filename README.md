@@ -44,7 +44,7 @@ The menu will turn into a "scroll menu" if the item count is greater than ```Max
 
 ## Activated
 
-When any item is pressed by tbe player the Activated event invokes. See the example below to implement, your own functions. ⚠️ This only needs to be called ONCE!
+When any item is pressed by the player the Activated event invokes. See the example below to implement, your own functions. ⚠️ This only needs to be called ONCE!
 
 ```
 Item.Activated += (sender, e) =>
