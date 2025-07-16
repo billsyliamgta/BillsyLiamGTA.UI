@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading.Tasks;
 using GTA;
 using GTA.Native;
 
@@ -8,7 +7,7 @@ namespace BillsyLiamGTA.UI.Elements
 {
     public abstract class BaseScaleform
     {
-        #region Fields
+        #region Properties
 
         public int Handle { get; private set; }
 
@@ -22,15 +21,32 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
 
+        public bool IsDeleting
+        {
+            get
+            {
+                return Function.Call<bool>(Hash.IS_SCALEFORM_MOVIE_DELETING, Handle);
+            }
+        }
+
         #endregion
+
+        #region Constructors
 
         public BaseScaleform(string movieName)
         {
             MovieName = movieName;
         }
 
-        #region Methods
+        #endregion
 
+        #region Functions
+
+        /// <summary>
+        /// Request's the scaleform movie and waits until its loaded. Throws a TimeoutException if it takes too long to load.
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <exception cref="TimeoutException"></exception>
         public void Load(int timeout = 5000)
         {
             int start = Game.GameTime;
@@ -46,7 +62,7 @@ namespace BillsyLiamGTA.UI.Elements
         }
 
         /// <summary>
-        /// Set the scaleform movie to be no longer needed.
+        /// If the scaleform movie is loaded, it will be disposed of and the handle will be set to 0.
         /// </summary>
         public virtual void Dispose()
         {

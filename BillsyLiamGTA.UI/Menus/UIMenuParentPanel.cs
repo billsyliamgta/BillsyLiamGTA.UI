@@ -5,13 +5,13 @@ namespace BillsyLiamGTA.UI.Menu
 {
     public class UIMenuParentPanel
     {
-        #region Fields
+        #region Properties
 
         public int Mom { get; set; }
 
         public int Dad { get; set; }
 
-        private int AnimAlpha { get; set; } = 0;
+        private int Alpha { get; set; } = 0;
 
         public UIMenu Parent { get; set; }
 
@@ -26,8 +26,6 @@ namespace BillsyLiamGTA.UI.Menu
             Mom = mom;
             Dad = dad;
         }
-
-        
 
         #endregion
 
@@ -71,22 +69,22 @@ namespace BillsyLiamGTA.UI.Menu
         {
             if (Parent.Visible)
             {
-                if (AnimAlpha < 255)
+                if (Alpha < 255)
                 {
-                    AnimAlpha += 5;
+                    Alpha += 5;
                 }
             }
 
             Parent.MenuClosed += (sender, e) =>
             {
-                AnimAlpha = 0;
+                Alpha = 0;
             };
 
             PointF safe = SafezoneTools.SafezoneBounds;
-            new UISprite(new TextureAsset("pause_menu_pages_char_mom_dad", "mumdadbg"), new PointF(safe.X - 2f, safe.Y + y), new SizeF(435, 235)).Draw();
-            new UISprite(new TextureAsset("char_creator_portraits", getMomTextureName()), new PointF(safe.X - 2f + 5, safe.Y + y), new SizeF(225, 235), Color.FromArgb(AnimAlpha, 255, 255, 255)).Draw();
-            new UISprite(new TextureAsset("char_creator_portraits", getDadTextureName()), new PointF(safe.X - 2f + 200, safe.Y + y), new SizeF(225, 235), Color.FromArgb(AnimAlpha, 255, 255, 255)).Draw();
-            new UISprite(new TextureAsset("pause_menu_pages_char_mom_dad", "vignette"), new PointF(safe.X - 2f, safe.Y + y), new SizeF(435, 235)).Draw();
+            new UISprite(new TextureAsset("pause_menu_pages_char_mom_dad", "mumdadbg"), new PointF(safe.X, safe.Y + y), new SizeF(Parent.Width, 235)).Draw();
+            new UISprite(new TextureAsset("char_creator_portraits", getMomTextureName()), new PointF(safe.X + 10, safe.Y + y), new SizeF(225, 235), Color.FromArgb(Alpha, 255, 255, 255)).Draw();
+            new UISprite(new TextureAsset("char_creator_portraits", getDadTextureName()), new PointF(safe.X + 200, safe.Y + y), new SizeF(225, 235), Color.FromArgb(Alpha, 255, 255, 255)).Draw();
+            new UISprite(new TextureAsset("pause_menu_pages_char_mom_dad", "vignette"), new PointF(safe.X, safe.Y + y), new SizeF(Parent.Width, 235)).Draw();
         }
 
         #endregion

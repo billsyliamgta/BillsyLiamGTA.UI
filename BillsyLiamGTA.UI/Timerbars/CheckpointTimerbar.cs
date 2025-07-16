@@ -1,6 +1,6 @@
 ﻿using GTA.Native;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Collections.Generic;
 using static BillsyLiamGTA.UI.Timerbars.TimerbarHelpers;
 
 namespace BillsyLiamGTA.UI.Timerbars
@@ -10,50 +10,56 @@ namespace BillsyLiamGTA.UI.Timerbars
         /// <summary>
         /// A enum containing the possible checkpoint states.
         /// </summary>
-        public enum CheckpointState
+        public enum eState
         { 
-            Default,
-            InProgress,
-            Failed
+            Default = 0,
+            InProgress = 1,
+            Failed = 2
         }
         /// <summary>
         /// A struct containing essential data for the checkpoint.
         /// </summary>
         public struct Checkpoint
         {
-            public Color Color { get; set; }
+            public Color Colour { get; set; }
 
-            public Color ProgressColor { get; set; }
+            public Color ProgressColour { get; set; }
 
-            public Color FailedColor { get; set; }
+            public Color FailedColour { get; set; }
 
-            public CheckpointState State { get; set; }
+            public eState State { get; set; }
 
-            public Checkpoint(Color color, Color progressColor, Color failedColor, CheckpointState state)
+            public Checkpoint(Color colour, Color progressColour, Color failedColour, eState state)
             {
-                Color = color;
-                ProgressColor = progressColor;
-                FailedColor = failedColor;
+                Colour = colour;
+                ProgressColour = progressColour;
+                FailedColour = failedColour;
                 State = state;
             }
 
             public void Draw(float x, float y)
             {
-                Color suitableColor = State == CheckpointState.Default ? Color : (State == CheckpointState.InProgress ? ProgressColor : FailedColor);
+                Color suitableColor = State == eState.Default ? Colour : (State == eState.InProgress ? ProgressColour : FailedColour);
                 Function.Call(Hash.DRAW_SPRITE, "timerbars", "circle_checkpoints", x, y, checkpointWidth, checkpointHeight, 0, suitableColor.R, suitableColor.G, suitableColor.B, 255, false, 0);
             }
         }
 
-        #region Fields
+        #region Properties
 
         public List<Checkpoint> Checkpoints { get; set; }
 
         #endregion
 
+        #region Constructors
+
         public CheckpointTimerbar(string text, List<Checkpoint> checkpoints) : base(text, true)
         {
             Checkpoints = checkpoints;
         }
+
+        #endregion
+
+        #region Functions
 
         public override void Draw(float y)
         {
@@ -69,5 +75,7 @@ namespace BillsyLiamGTA.UI.Timerbars
                 }
             }
         }
+
+        #endregion
     }
 }

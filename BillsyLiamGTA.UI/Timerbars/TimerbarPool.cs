@@ -10,11 +10,13 @@ namespace BillsyLiamGTA.UI.Timerbars
 {
     public class TimerbarPool : Script
     {
-        #region Fields
+        #region Properties
 
         private static List<BaseTimerbar> pool;
 
         #endregion
+
+        #region Constructors
 
         public TimerbarPool()
         {
@@ -22,7 +24,9 @@ namespace BillsyLiamGTA.UI.Timerbars
             Tick += OnTick;
         }
 
-        #region Methods
+        #endregion
+
+        #region Functions
 
         public static void Add(BaseTimerbar bar)
         {
@@ -50,30 +54,28 @@ namespace BillsyLiamGTA.UI.Timerbars
         {
             if (pool?.Count > 0)
             {
-                while (!Function.Call<bool>(Hash.HAS_STREAMED_TEXTURE_DICT_LOADED, "timerbars"))
+                Function.Call(Hash.REQUEST_STREAMED_TEXTURE_DICT, "timerbars", false);
+                if (Function.Call<bool>(Hash.HAS_STREAMED_TEXTURE_DICT_LOADED, "timerbars"))
                 {
-                    Function.Call(Hash.REQUEST_STREAMED_TEXTURE_DICT, "timerbars", false);
-                    Wait(0);
+                    Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 6);
+                    Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 7);
+                    Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 8);
+                    Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 9);
+                    Function.Call(Hash.SET_SCRIPT_GFX_ALIGN, 82, 66);
+                    Function.Call(Hash.SET_SCRIPT_GFX_ALIGN_PARAMS, 0.0, 0.0, gfxAlignWidth, gfxAlignHeight);
+                    float drawY = LoadingPrompt.IsActive || MenuHandler.AreAnyMenusOpen ? initialBusySpinnerY : initialY;
+                    for (int i = 0; i < pool.Count; i++)
+                    {
+                        BaseTimerbar bar = pool[i];
+                        bar.Draw(drawY);
+                        drawY -= bar.Thin ? timerBarThinMargin : timerBarMargin;
+                    }
+                    Function.Call(Hash.RESET_SCRIPT_GFX_ALIGN);
                 }
-
-                Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 6);
-                Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 7);
-                Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 8);
-                Function.Call(Hash.HIDE_HUD_COMPONENT_THIS_FRAME, 9);
-                Function.Call(Hash.SET_SCRIPT_GFX_ALIGN, 82, 66);
-                Function.Call(Hash.SET_SCRIPT_GFX_ALIGN_PARAMS, 0.0, 0.0, gfxAlignWidth, gfxAlignHeight);
-                float drawY = LoadingPrompt.IsActive || MenuHandler.AreAnyMenusOpen ? initialBusySpinnerY : initialY;
-                for (int i = 0; i < pool.Count; i++)
+                else if (Function.Call<bool>(Hash.HAS_STREAMED_TEXTURE_DICT_LOADED, "timerbars"))
                 {
-                    BaseTimerbar bar = pool[i];
-                    bar.Draw(drawY);
-                    drawY -= bar.Thin ? timerBarThinMargin : timerBarMargin;
+                    Function.Call(Hash.SET_STREAMED_TEXTURE_DICT_AS_NO_LONGER_NEEDED, "timerbars");
                 }
-                Function.Call(Hash.RESET_SCRIPT_GFX_ALIGN);
-            }
-            else if (Function.Call<bool>(Hash.HAS_STREAMED_TEXTURE_DICT_LOADED, "timerbars"))
-            {
-                Function.Call(Hash.SET_STREAMED_TEXTURE_DICT_AS_NO_LONGER_NEEDED, "timerbars");
             }
         }
 

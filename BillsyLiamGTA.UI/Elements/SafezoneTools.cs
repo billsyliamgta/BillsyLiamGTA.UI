@@ -7,7 +7,7 @@ namespace BillsyLiamGTA.UI.Elements
 {
     public static class SafezoneTools
     {
-        #region Fields
+        #region Properties
 
         public static SizeF ResolutionMaintainRatio
         {
@@ -57,7 +57,15 @@ namespace BillsyLiamGTA.UI.Elements
 
         public static float ToYRelative(this float y) => y / 1080f;
 
+        public static float ToXScaled(this float x) => (1080f * Screen.AspectRatio) * x;
+
+        public static float ToYScaled(this float y) => 1080f * y;
+
+        public static PointF ToScaled(this PointF point) => new PointF(point.X.ToXScaled(), point.Y.ToYScaled());
+
         #endregion
+
+        #region Functions
 
         public static bool IsCursorInArea(PointF position, SizeF size)
         {
@@ -65,5 +73,7 @@ namespace BillsyLiamGTA.UI.Elements
             bool isY = Cursor.Y > position.Y && Cursor.Y < position.Y + size.Height;
             return isX && isY;
         }
+
+        #endregion
     }
 }

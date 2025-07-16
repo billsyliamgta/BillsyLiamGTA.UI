@@ -4,7 +4,7 @@ namespace BillsyLiamGTA.UI.Elements
 {
     public class Extensions
     {
-        #region Methods
+        #region Functions
 
         public static void CallFunction(int handle, string functionName, params object[] args)
         {

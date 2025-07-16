@@ -1,12 +1,16 @@
-﻿using GTA.Native;
+﻿using GTA;
+using GTA.Native;
 using System.Drawing;
 using BillsyLiamGTA.UI.Elements;
+using static GTA.Game;
+using System.Collections.Generic;
+using BillsyLiamGTA.UI.Scaleform;
 
 namespace BillsyLiamGTA.UI.Menu
 {
     public abstract class UIMenuBaseItem
     {
-        #region Fields
+        #region Properties
 
         /// <summary>
         /// The title of the item.
@@ -55,17 +59,29 @@ namespace BillsyLiamGTA.UI.Menu
             }
         }
 
+        public List<InstructionalButtonContainer> InstructionalButtons = new List<InstructionalButtonContainer>()
+        {
+            new InstructionalButtonContainer(Control.FrontendAccept, "Select"),
+            new InstructionalButtonContainer(Control.FrontendCancel, "Back")
+        };
+
         public event UIMenuItemActivatedEventHandler Activated;
 
         public UIMenu Parent { get; set; }
 
         #endregion
 
+        #region Constructors
+
         public UIMenuBaseItem(string title, string description)
         {
             Title = title;
             Description = description;
         }
+
+        #endregion
+
+        #region Methods
 
         public virtual void Draw(float x, float y, float width)
         {
@@ -75,15 +91,17 @@ namespace BillsyLiamGTA.UI.Menu
                 SuitableTabColor
             );
             tab.Draw();
-            new UIText(Title, new PointF(x + 10, y + 5), 0.345f, SuitableTextColor, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Left).Draw();
+            new UIText(Title, new PointF(x + 10, y + 5), 0.345f, SuitableTextColor, UIText.eFonts.FONT_STANDARD, UIText.eAlignments.Left).Draw();
             if (IsSelected)
             {
-                if (Input.IsControlJustPressed(InputControl.FrontendAccept) || Input.IsControlJustPressed(InputControl.Attack) && SafezoneTools.IsCursorInArea(tab.Position, tab.Size))
+                if (IsControlJustPressed(Control.FrontendAccept) || IsControlJustPressed(Control.Attack) && SafezoneTools.IsCursorInArea(tab.Position, tab.Size))
                 {
                     Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
                     Activated?.Invoke(this, new UIMenuItemActivatedArgs(this));
                 }
             }
         }
+
+        #endregion
     }
 }

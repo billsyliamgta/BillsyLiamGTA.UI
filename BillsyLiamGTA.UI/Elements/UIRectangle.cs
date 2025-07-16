@@ -9,24 +9,24 @@ namespace BillsyLiamGTA.UI.Elements
     /// </summary>
     public class UIRectangle
     {
-        #region Fields
+        #region Properties
 
         public PointF Position { get; set; }
 
         public SizeF Size { get; set; }
 
-        public Color Color { get; set; } = Color.FromArgb(255, 255, 255);
+        public Color Colour { get; set; } = Color.FromArgb(255, 255, 255);
 
         #endregion
 
-        public UIRectangle(PointF position, SizeF size, Color color)
+        public UIRectangle(PointF position, SizeF size, Color colour)
         {
             Position = position;
             Size = size;
-            Color = color;
+            Colour = colour;
         }
 
-        #region Methods
+        #region Functions
 
         public void Draw()
         {
@@ -39,7 +39,7 @@ namespace BillsyLiamGTA.UI.Elements
             float h = (Size.Height / height);
             float x = (Position.X / width) + w * 0.5f;
             float y = (Position.Y / height) + h * 0.5f;
-            Function.Call(Hash.DRAW_RECT, x, y, w, h, Color.R, Color.G, Color.B, Color.A);
+            Function.Call(Hash.DRAW_RECT, x, y, w, h, Colour.R, Colour.G, Colour.B, Colour.A);
         }
 
         #endregion

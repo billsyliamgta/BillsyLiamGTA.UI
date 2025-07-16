@@ -5,16 +5,22 @@ namespace BillsyLiamGTA.UI.Timerbars
 {
     public class TextTimerbar : BaseTimerbar
     {
-        #region Fields
+        #region Properties
 
         public string Subtitle { get; set; }
 
         #endregion
 
+        #region Constructors
+
         public TextTimerbar(string text, string subtitle) : base(text, false)
         {
             Subtitle = subtitle;
         }
+
+        #endregion
+
+        #region Functions
 
         public override void Draw(float y)
         {
@@ -22,5 +28,7 @@ namespace BillsyLiamGTA.UI.Timerbars
             y += textOffset;
             DrawText(Subtitle, initialX, y, 0, textScale, Color.FromArgb(255, 240, 240, 240), 2, textWrap);
         }
+
+        #endregion
     }
 }

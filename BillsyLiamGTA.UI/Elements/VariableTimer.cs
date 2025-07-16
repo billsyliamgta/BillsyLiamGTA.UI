@@ -1,11 +1,10 @@
 ﻿using GTA;
-using System;
 
 namespace BillsyLiamGTA.UI.Elements
 {
     public class VariableTimer
     {
-        #region Fields
+        #region Properties
 
         public delegate void TimerExpired(object sender);
 
@@ -23,7 +22,7 @@ namespace BillsyLiamGTA.UI.Elements
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
         public VariableTimer(int interval)
         {
@@ -33,7 +32,7 @@ namespace BillsyLiamGTA.UI.Elements
 
         #endregion
 
-        #region Methods
+        #region Functions
 
         public void AddTime(decimal amount)
         {

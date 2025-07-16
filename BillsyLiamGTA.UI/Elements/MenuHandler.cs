@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GTA;
 using BillsyLiamGTA.UI.Menu;
 using BillsyLiamGTA.UI.Scaleform;
@@ -9,7 +8,11 @@ namespace BillsyLiamGTA.UI.Elements
 {
     public class MenuHandler : Script
     {
+        #region Properties
+
         private static List<UIMenu> pool;
+
+        private static InstructionalButtons instructionalButtons;
 
         public static bool AreAnyMenusOpen
         {
@@ -33,11 +36,20 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
 
+        #endregion
+
+        #region Constructors
+
         public MenuHandler()
         {
             pool = new List<UIMenu>();
+            instructionalButtons = new InstructionalButtons();
             Tick += OnTick;
         }
+
+        #endregion
+
+        #region Functions
 
         private void OnTick(object sender, EventArgs e)
         {
@@ -65,5 +77,7 @@ namespace BillsyLiamGTA.UI.Elements
                 pool.Remove(menu);
             }
         }
+
+        #endregion
     }
 }

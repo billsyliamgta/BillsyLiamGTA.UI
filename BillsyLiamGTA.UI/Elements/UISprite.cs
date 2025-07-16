@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using GTA;
 using GTA.UI;
 using GTA.Native;
 
@@ -10,15 +9,21 @@ namespace BillsyLiamGTA.UI.Elements
     /// </summary>
     public class UISprite
     {
+        #region Properties
+
         public TextureAsset TextureAsset { get; private set; }
 
         public PointF Position { get; set; }
 
         public SizeF Size { get; set; }
 
-        public float Heading { get; set; }
+        public float Heading { get; set; } = 0f;
 
-        public Color Color { get; set; } = Color.FromArgb(255, 255, 255);
+        public Color Colour { get; set; } = Color.FromArgb(255, 255, 255);
+
+        #endregion
+
+        #region Constructors
 
         public UISprite(TextureAsset textureAsset, PointF position, SizeF size)
         {
@@ -27,13 +32,17 @@ namespace BillsyLiamGTA.UI.Elements
             Size = size;
         }
 
-        public UISprite(TextureAsset textureAsset, PointF position, SizeF size, Color color)
+        public UISprite(TextureAsset textureAsset, PointF position, SizeF size, Color colour)
         {
             TextureAsset = textureAsset;
             Position = position;
             Size = size;
-            Color = color;
+            Colour = colour;
         }
+
+        #endregion
+
+        #region Functions
 
         public void Draw()
         {
@@ -52,10 +61,12 @@ namespace BillsyLiamGTA.UI.Elements
             float h = (Size.Height / height);
             float x = (Position.X / width) + w * 0.5f;
             float y = (Position.Y / height) + h * 0.5f;
-            Function.Call(Hash.DRAW_SPRITE, TextureAsset.Dictionary, TextureAsset.Name, x, y, w, h, Heading, Color.R, Color.G, Color.B, Color.A);
+            Function.Call(Hash.DRAW_SPRITE, TextureAsset.Dictionary, TextureAsset.Name, x, y, w, h, Heading, Colour.R, Colour.G, Colour.B, Colour.A);
         }
 
         public bool IsCursorAbove() => SafezoneTools.IsCursorInArea(Position, Size);
         public void Dispose() => TextureAsset?.Dispose();
+
+        #endregion
     }
 }

@@ -46,7 +46,7 @@ namespace BillsyLiamGTA.UI.Scaleform
         public void Show()
         {
             Load();
-            Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "Shard_Appear", "GTAO_FM_Events_Soundset", false);
+            Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "Shard_Appear", "GTAO_Boss_Goons_FM_Shard_Sounds", false);
             CallFunction("SHOW_SHARD_MIDSIZED_MESSAGE", Title, Description, Color, false, Condensed);
             int start = Game.GameTime;
             int time = ScreenTime;
@@ -55,7 +55,7 @@ namespace BillsyLiamGTA.UI.Scaleform
                 Draw();
                 Script.Wait(0);
             }
-            Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "Shard_Disappear", "GTAO_FM_Events_Soundset", false);
+            Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "Shard_Disappear", "GTAO_Boss_Goons_FM_Shard_Sounds", false);
             CallFunction("SHARD_ANIM_OUT", Color, AnimOutSpeed);
             start = Game.GameTime;
             time = (int)(AnimOutSpeed * 10000);

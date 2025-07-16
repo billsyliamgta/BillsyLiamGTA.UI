@@ -9,6 +9,8 @@ namespace BillsyLiamGTA.UI.Elements
     /// </summary>
     public class TextureAsset
     {
+        #region Properties
+
         /// <summary>
         /// Name of the dictionary.
         /// </summary>
@@ -27,25 +29,26 @@ namespace BillsyLiamGTA.UI.Elements
                 return Function.Call<bool>(Hash.HAS_STREAMED_TEXTURE_DICT_LOADED, Dictionary);
             }
         }
-        /// <summary>
-        /// Create a new Texture Asset instance.
-        /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="name"></param>
+
+        #endregion
+
+        #region Constructors
+
         public TextureAsset(string dictionary, string name)
         {
             Dictionary = dictionary;
             Name = name;
         }
-        /// <summary>
-        /// Create a new Texture Asset instance without the texture name, in case you only want to load the dictionary.
-        /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="name"></param>
+
         public TextureAsset(string dictionary)
         {
             Dictionary = dictionary;
         }
+
+        #endregion
+
+        #region Functions
+
         /// <summary>
         /// Load's the texture dictionary and times out if it takes too long.
         /// </summary>
@@ -74,5 +77,7 @@ namespace BillsyLiamGTA.UI.Elements
                 Function.Call(Hash.SET_STREAMED_TEXTURE_DICT_AS_NO_LONGER_NEEDED, Dictionary);
             }
         }
+
+        #endregion
     }
 }

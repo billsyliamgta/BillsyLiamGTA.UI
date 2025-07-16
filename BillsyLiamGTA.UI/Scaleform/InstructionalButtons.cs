@@ -1,6 +1,9 @@
-﻿using GTA.Native;
+﻿using GTA;
+using GTA.Native;
 using BillsyLiamGTA.UI.Elements;
+using static BillsyLiamGTA.UI.Timerbars.TimerbarHelpers;
 using System.Collections.Generic;
+using System;
 
 namespace BillsyLiamGTA.UI.Scaleform
 {
@@ -8,13 +11,13 @@ namespace BillsyLiamGTA.UI.Scaleform
     {
         #region Fields
 
-        public InputControl Button { get; set; }
+        public Control Button { get; set; }
 
         public string Text { get; set; }
 
         #endregion
 
-        public InstructionalButtonContainer(InputControl button, string text)
+        public InstructionalButtonContainer(Control button, string text)
         {
             Button = button;
             Text = text;
@@ -29,12 +32,23 @@ namespace BillsyLiamGTA.UI.Scaleform
 
         private bool Inited { get; set; } = false;
 
+        public bool IsClickableWithMouse { get; set; } = false;
+
         #endregion
 
-        public InstructionalButtons() : base("INSTRUCTIONAL_BUTTONS")
+        public InstructionalButtons(params InstructionalButtonContainer[] containers) : base("INSTRUCTIONAL_BUTTONS")
         {
             Containers = new List<InstructionalButtonContainer>();
+            if (containers.Length > 0)
+            {
+                for (int i = 0; i < containers.Length; i++)
+                {
+                    AddContainer(containers[i]);
+                }
+            }
         }
+
+        #region Methods
 
         public void AddContainer(InstructionalButtonContainer container)
         {
@@ -60,6 +74,11 @@ namespace BillsyLiamGTA.UI.Scaleform
             }
         }
 
+        public void SetContainers(List<InstructionalButtonContainer> containers)
+        {
+            Containers = containers;
+        }
+
         /// <summary>
         /// Pushes the scaleform movie functions to display the containers.
         /// </summary>
@@ -68,7 +87,7 @@ namespace BillsyLiamGTA.UI.Scaleform
             if (IsLoaded)
             {
                 CallFunction("CLEAR_ALL");
-                CallFunction("TOGGLE_MOUSE_BUTTONS", 1);
+                CallFunction("TOGGLE_MOUSE_BUTTONS", IsClickableWithMouse ? 1 : 0);
                 if (Containers != null)
                 {
                     if (Containers.Count > 0)
@@ -98,5 +117,7 @@ namespace BillsyLiamGTA.UI.Scaleform
             base.Dispose();
             Inited = false;
         }
+
+        #endregion
     }
 }

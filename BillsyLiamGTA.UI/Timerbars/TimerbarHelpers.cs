@@ -1,8 +1,4 @@
 ﻿using GTA.Native;
-using GTA.UI;
-using GTA;
-using static BillsyLiamGTA.UI.Elements.UIText;
-using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
 
 namespace BillsyLiamGTA.UI.Timerbars
@@ -73,7 +69,7 @@ namespace BillsyLiamGTA.UI.Timerbars
 
         #endregion
 
-        #region Methods
+        #region Functions
 
         public static void DrawText(string text, float x, float y, int font, float scale, Color color, int justification, float wrap, bool shadow = false, bool outline = false)
         {

@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Collections.Generic;
+using GTA;
 using GTA.Native;
 using BillsyLiamGTA.UI.Elements;
+using static GTA.Game;
 
 namespace BillsyLiamGTA.UI.Menu
 {
     public class UIMenuListItem<T> : UIMenuBaseItem
     {
-        #region Fields
+        #region Properties
 
         public int Index { get; set; } = 0;
 
@@ -36,21 +38,21 @@ namespace BillsyLiamGTA.UI.Menu
             Items = items;
         }
 
-        #region Methods
+        #region Functions
 
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            UIText text = new UIText(Items[Index].ToString(), new PointF(x - (IsSelected ? 25 : 10) + width, y + 5), 0.345f, SuitableTextColor, UIText.eTextFonts.FONT_STANDARD, UIText.eTextAlignments.Right);
+            UIText text = new UIText(Items[Index].ToString(), new PointF(x - (IsSelected ? 25 : 10) + width, y + 5), 0.345f, SuitableTextColor, UIText.eFonts.FONT_STANDARD, UIText.eAlignments.Right);
             if (IsSelected)
             {
                 UISprite arrowRight = new UISprite(new TextureAsset("commonmenu", "arrowright"), new PointF(x - 28 + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
                 UISprite arrowLeft = new UISprite(new TextureAsset("commonmenu", "arrowleft"), new PointF(x - 45 - text.Width + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
-                if (Input.IsControlJustPressed(InputControl.FrontendRight) || arrowRight.IsCursorAbove() && Input.IsControlJustPressed(InputControl.Attack))
+                if (IsControlJustPressed(Control.FrontendRight) || arrowRight.IsCursorAbove() && IsControlJustPressed(Control.Attack))
                 {
                     GoRight();
                 }
-                if (Input.IsControlJustPressed(InputControl.FrontendLeft) || arrowLeft.IsCursorAbove() && Input.IsControlJustPressed(InputControl.Attack))
+                if (IsControlJustPressed(Control.FrontendLeft) || arrowLeft.IsCursorAbove() && IsControlJustPressed(Control.Attack))
                 {
                     GoLeft();
                 }
