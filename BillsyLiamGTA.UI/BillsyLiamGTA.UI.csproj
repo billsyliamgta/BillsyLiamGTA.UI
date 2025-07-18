@@ -32,16 +32,6 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'FiveM|AnyCPU'">
-    <OutputPath>bin\FiveM\</OutputPath>
-    <DefineConstants>FiveM</DefineConstants>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SHVDN|AnyCPU'">
-    <OutputPath>bin\SHVDN\</OutputPath>
-    <DefineConstants>SHVDN</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ScriptHookVDotNet3">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\ScriptHookVDotNet3.dll</HintPath>
@@ -67,6 +57,8 @@
     <Compile Include="Elements\TextureAsset.cs" />
     <Compile Include="Elements\MenuHandler.cs" />
     <Compile Include="Elements\VariableTimer.cs" />
+    <Compile Include="Menus\UIMenuDescriptionPanel.cs" />
+    <Compile Include="Menus\UIMenuBasePanel.cs" />
     <Compile Include="Menus\UIMenuSliderItemValueChangedArgs.cs" />
     <Compile Include="Menus\UIMenuSliderItemValueChangedEventHandler.cs" />
     <Compile Include="Menus\UIMenuClosedArgs.cs" />
@@ -84,7 +76,6 @@
     <Compile Include="Menus\UIMenuListItemChangedArgs.cs" />
     <Compile Include="Menus\UIMenuListItemChangedEventHandler.cs" />
     <Compile Include="Menus\UIMenuNormalItem.cs" />
-    <Compile Include="Menus\UIMenuParentPanel.cs" />
     <Compile Include="Menus\UIMenuSliderItem.cs" />
     <Compile Include="Scaleform\InstructionalButtons.cs" />
     <Compile Include="Scaleform\MidsizedMessage.cs" />

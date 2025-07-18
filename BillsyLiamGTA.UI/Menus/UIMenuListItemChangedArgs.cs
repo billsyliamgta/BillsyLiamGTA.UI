@@ -2,7 +2,7 @@
 {
     public class UIMenuListItemChangedArgs
     {
-        #region Fields
+        #region Properties
 
         public int Index { get; set; }
 
@@ -10,10 +10,14 @@
 
         #endregion
 
+        #region Constructors
+
         public UIMenuListItemChangedArgs(int index, dynamic value)
         {
             Index = index;
             Value = value;
         }
+
+        #endregion
     }
 }

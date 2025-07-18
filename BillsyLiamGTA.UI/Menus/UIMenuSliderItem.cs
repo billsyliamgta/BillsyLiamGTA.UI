@@ -8,29 +8,41 @@ namespace BillsyLiamGTA.UI.Menu
 {
     public class UIMenuSliderItem : UIMenuBaseItem
     {
+        #region Fields
+
+        private const float slideIncreaseValue = 0.02f;
+
+        private const float slideMinValue = 0.0f;
+
+        private const float slideMaxValue = 1.0f;   
+
+        #endregion
+
         #region Properties
 
         /// <summary>
-        /// Value of the slider. This ranges between 0.0 - 1.0.
+        /// Value of the slider. This ranges between 0.0f - 1.0f.
         /// </summary>
         public float Value { get; set; } = 1f;
         /// <summary>
-        /// The slider's multiplier. Increasing this will make the slider go faster when sliding etc.
+        /// The slider's multiplier.
         /// </summary>
         public float SlideMultiplier { get; set; } = 1f;
         /// <summary>
         /// Whether the value is increasing or not.
         /// </summary>
-        private bool InternalSlidingRight { get; set; } = false;
+        private bool SlidingRightInternal { get; set; } = false;
         /// <summary>
         /// Whether the value is decreasing or not.
         /// </summary>
-        private bool InternalSlidingLeft { get; set; } = false;
+        private bool SlidingLeftInternal { get; set; } = false;
         /// <summary>
         /// The colour of the slider.
         /// </summary>
-        public Color SliderColour { get; set; } = Color.FromArgb(47, 92, 115);
-
+        public Color SliderColour { get; set; } = Color.FromArgb(93, 182, 229);
+        /// <summary>
+        /// The sound id for sliding.
+        /// </summary>
         private int SoundId;
         /// <summary>
         /// If the gender icons are enabled or not.
@@ -75,52 +87,52 @@ namespace BillsyLiamGTA.UI.Menu
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            new UIRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0), y + 13), new SizeF(200f, 9f), Color.FromArgb(155, SliderColour.R, SliderColour.G, SliderColour.B)).Draw();
-            new UIRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0) + (100 * Extensions.Clamp(Value, 0.0f, 1.0f)), y + 13), new SizeF(100f, 9f), Color.FromArgb(255, SliderColour.R, SliderColour.G, SliderColour.B)).Draw();
-            new UIRectangle(new PointF(x + width - 110 - (GenderIconsEnabled ? 25 : 0), y + 10), new SizeF(3f, 17f), Color.White).Draw();
+            new UIRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0), y + 15), new SizeF(200f, 9f), Color.FromArgb(155, SliderColour.R, SliderColour.G, SliderColour.B)).Draw();
+            new UIRectangle(new PointF(x + width - 210 - (GenderIconsEnabled ? 25 : 0) + (100 * Value), y + 15), new SizeF(100f, 9f), Color.FromArgb(255, SliderColour.R, SliderColour.G, SliderColour.B)).Draw();
+            new UIRectangle(new PointF(x + width - 110 - (GenderIconsEnabled ? 25 : 0), y + 11), new SizeF(3f, 17f), Color.White).Draw();
             if (GenderIconsEnabled)
             {
-                new UISprite(new TextureAsset("mpleaderboard", "leaderboard_female_icon"), new PointF(x + width - 275, y), new SizeF(40f, 40f), SuitableGenderIconsColour).Draw();
-                new UISprite(new TextureAsset("mpleaderboard", "leaderboard_male_icon"), new PointF(x + width - 35, y), new SizeF(40f, 40f), SuitableGenderIconsColour).Draw();
+                new UISprite(new Texture("mpleaderboard", "leaderboard_female_icon"), new PointF(x + width - 275, y), new SizeF(40f, 40f), SuitableGenderIconsColour).Draw();
+                new UISprite(new Texture("mpleaderboard", "leaderboard_male_icon"), new PointF(x + width - 35, y), new SizeF(40f, 40f), SuitableGenderIconsColour).Draw();
             }
             if (IsSelected)
             {
-                if (IsControlJustPressed(Control.FrontendRight) && !InternalSlidingRight && !InternalSlidingLeft)
+                if (IsControlJustPressed(Control.FrontendRight) && !SlidingRightInternal && !SlidingLeftInternal)
                 {
                     SoundId = Function.Call<int>(Hash.GET_SOUND_ID);
                     Function.Call(Hash.PLAY_SOUND_FRONTEND, SoundId, "CONTINUOUS_SLIDER", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
-                    InternalSlidingRight = true;
+                    SlidingRightInternal = true;
                 }
-                else if (IsControlJustPressed(Control.FrontendLeft) && !InternalSlidingRight && !InternalSlidingLeft)
+                else if (IsControlJustPressed(Control.FrontendLeft) && !SlidingRightInternal && !SlidingLeftInternal)
                 {
                     SoundId = Function.Call<int>(Hash.GET_SOUND_ID);
                     Function.Call(Hash.PLAY_SOUND_FRONTEND, SoundId, "CONTINUOUS_SLIDER", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
-                    InternalSlidingLeft = true;
+                    SlidingLeftInternal = true;
                 }
 
-                if (InternalSlidingRight) // Increase the value.
+                if (SlidingRightInternal) // Increase the value.
                 {
-                    Value = Extensions.Clamp(Value + 0.02f * SlideMultiplier, 0.0f, 1.0f);
+                    Value = Extensions.Clamp(Value + slideIncreaseValue * SlideMultiplier, slideMinValue, slideMaxValue); // Clamp the value to stop it from going out of range.
                     ValueChanged?.Invoke(this, new UIMenuSliderItemValueChangedArgs(Value));
-                    if (IsControlJustReleased(Control.FrontendRight) || Value >= 1.0f)
+                    if (IsControlJustReleased(Control.FrontendRight) || Value >= slideMaxValue)
                     {
                         Function.Call(Hash.STOP_SOUND, SoundId);
                         Function.Call(Hash.RELEASE_SOUND_ID, SoundId);
                         SoundId = 0;
-                        InternalSlidingRight = false;
+                        SlidingRightInternal = false;
                     }
                 }
 
-                if (InternalSlidingLeft) // Decrease the value.
+                if (SlidingLeftInternal) // Decrease the value.
                 {
-                    Value = Extensions.Clamp(Value - 0.02f * SlideMultiplier, 0.0f, 1.0f);
+                    Value = Extensions.Clamp(Value - slideIncreaseValue * SlideMultiplier, slideMinValue, slideMaxValue); // Clamp the value to stop it from going out of range.
                     ValueChanged?.Invoke(this, new UIMenuSliderItemValueChangedArgs(Value));
-                    if (IsControlJustReleased(Control.FrontendLeft) || Value <= 0.0f)
+                    if (IsControlJustReleased(Control.FrontendLeft) || Value <= slideMinValue)
                     {
                         Function.Call(Hash.STOP_SOUND, SoundId);
                         Function.Call(Hash.RELEASE_SOUND_ID, SoundId);
                         SoundId = 0;
-                        InternalSlidingLeft = false;
+                        SlidingLeftInternal = false;
                     }
                 }
             }

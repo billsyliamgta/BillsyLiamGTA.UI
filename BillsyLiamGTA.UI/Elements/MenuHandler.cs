@@ -14,6 +14,8 @@ namespace BillsyLiamGTA.UI.Elements
 
         private static InstructionalButtons instructionalButtons;
 
+        private static int LastUpdatedSelection = -1;
+
         public static bool AreAnyMenusOpen
         {
             get
@@ -44,6 +46,7 @@ namespace BillsyLiamGTA.UI.Elements
         {
             pool = new List<UIMenu>();
             instructionalButtons = new InstructionalButtons();
+            instructionalButtons.IsClickableWithMouse = true;
             Tick += OnTick;
         }
 
@@ -58,6 +61,32 @@ namespace BillsyLiamGTA.UI.Elements
                 foreach (UIMenu menu in pool)
                 {
                     menu.Draw();
+
+                    if (menu.Visible && menu.HasItems())
+                    {
+                        if (!instructionalButtons.IsLoaded)
+                        {
+                            instructionalButtons.Load();
+                        }
+                        else
+                        {
+                            if (LastUpdatedSelection != menu.CurrentSelection)
+                            {
+                                instructionalButtons.SetContainers(menu.SelectedItem.InstructionalButtons);
+                                instructionalButtons.UpdateScaleform();
+                                LastUpdatedSelection = menu.CurrentSelection;
+                            }
+
+                            instructionalButtons.Draw();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (instructionalButtons.IsLoaded)
+                {
+                    instructionalButtons.Dispose();
                 }
             }
         }

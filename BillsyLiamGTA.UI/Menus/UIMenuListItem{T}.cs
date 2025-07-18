@@ -5,6 +5,8 @@ using GTA;
 using GTA.Native;
 using BillsyLiamGTA.UI.Elements;
 using static GTA.Game;
+using GTA.Math;
+using GTA.UI;
 
 namespace BillsyLiamGTA.UI.Menu
 {
@@ -28,6 +30,8 @@ namespace BillsyLiamGTA.UI.Menu
 
         #endregion
 
+        #region Constructors
+
         public UIMenuListItem(string title, string description, List<T> items) : base(title, description)
         {
             if (items.Count == 0)
@@ -38,16 +42,18 @@ namespace BillsyLiamGTA.UI.Menu
             Items = items;
         }
 
+        #endregion
+
         #region Functions
 
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            UIText text = new UIText(Items[Index].ToString(), new PointF(x - (IsSelected ? 25 : 10) + width, y + 5), 0.345f, SuitableTextColor, UIText.eFonts.FONT_STANDARD, UIText.eAlignments.Right);
+            UIText text = new UIText(Items[Index].ToString(), new PointF(x - (IsSelected ? 25 : 10) + width - 2, y + (IsSelected ? 3 : 5)), 0.345f, TextColour, UIText.eFonts.FONT_STANDARD, UIText.eAlignments.Right);
             if (IsSelected)
             {
-                UISprite arrowRight = new UISprite(new TextureAsset("commonmenu", "arrowright"), new PointF(x - 28 + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
-                UISprite arrowLeft = new UISprite(new TextureAsset("commonmenu", "arrowleft"), new PointF(x - 45 - text.Width + width, y + 7), new SizeF(25f, 25f), SuitableTextColor);
+                UISprite arrowRight = new UISprite(new Texture("commonmenu", "arrowright"), new PointF(x + width - 28, y + 7), new SizeF(23f, 23f), TextColour);
+                UISprite arrowLeft = new UISprite(new Texture("commonmenu", "arrowleft"), new PointF(x + width - 48 - text.Width, y + 7), new SizeF(23f, 23f), TextColour);
                 if (IsControlJustPressed(Control.FrontendRight) || arrowRight.IsCursorAbove() && IsControlJustPressed(Control.Attack))
                 {
                     GoRight();

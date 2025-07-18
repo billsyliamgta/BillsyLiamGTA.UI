@@ -7,55 +7,60 @@ namespace BillsyLiamGTA.UI.Menu
 {
     public class UIMenuCheckboxItem : UIMenuBaseItem
     {
-        public UIMenuCheckboxItem(string title, string description) : base(title, description)
-        {
+        #region Properties
 
-        }
         /// <summary>
-        /// The checkbox's texture name.
+        /// The texture object for the checkbox.
         /// </summary>
-        private string _txn = "shop_box_blank";
+        public Texture CheckboxTexture;
+
         /// <summary>
         /// Whether the checkbox is ticked or not.
         /// </summary>
-        public bool IsTicked
-        {
-            get
-            {
-                if (_txn == "shop_box_tick" || _txn == "shop_box_tickb")
-                {
-                    return true;
-                }
+        private bool _isTicked;
+        public bool IsTicked => _isTicked;
 
-                return false;
-            }
+        #endregion
+
+        #region Constructors
+
+        public UIMenuCheckboxItem(string title, string description) : base(title, description)
+        {
+            CheckboxTexture = new Texture("commonmenu");
+            _isTicked = false;
+            UpdateTextureName();
         }
+
+        #endregion
+
+        #region Functions
 
         public override void Draw(float x, float y, float width)
         {
             base.Draw(x, y, width);
-            UISprite checkbox = new UISprite(new TextureAsset("commonmenu", _txn), new PointF(x + width - 50, y - 6), new SizeF(50, 50));
-            if (checkbox.IsCursorAbove() && IsControlJustPressed(Control.Attack) || IsSelected && IsControlJustPressed(Control.FrontendAccept))
+
+            UISprite checkbox = new UISprite(CheckboxTexture, new PointF(x + width - 50, y - 7), new SizeF(50, 50));
+
+            bool clicked = (checkbox.IsCursorAbove() && IsControlJustPressed(Control.Attack)) ||
+                           (IsSelected && IsControlJustPressed(Control.FrontendAccept));
+
+            if (clicked)
             {
-                _txn = !IsTicked ? "shop_box_tick" : "shop_box_blank";
+                _isTicked = !_isTicked;
             }
-            if (_txn == "shop_box_tick" && IsSelected)
-            {
-                _txn = "shop_box_tickb";
-            }
-            else if (_txn == "shop_box_tickb" && !IsSelected)
-            {
-                _txn = "shop_box_tick";
-            }
-            else if (_txn == "shop_box_blank" && IsSelected)
-            {
-                _txn = "shop_box_blankb";
-            }
-            else if (_txn == "shop_box_blankb" && !IsSelected)
-            {
-                _txn = "shop_box_blank";
-            }
+
+            UpdateTextureName();
             checkbox.Draw();
         }
+
+        private void UpdateTextureName()
+        {
+            if (_isTicked)
+                CheckboxTexture.Name = IsSelected ? "shop_box_tickb" : "shop_box_tick";
+            else
+                CheckboxTexture.Name = IsSelected ? "shop_box_blankb" : "shop_box_blank";
+        }
+
+        #endregion
     }
 }

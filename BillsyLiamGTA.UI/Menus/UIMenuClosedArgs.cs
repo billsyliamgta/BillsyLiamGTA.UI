@@ -14,9 +14,13 @@
 
         #endregion
 
+        #region Constructors
+
         public UIMenuClosedArgs(UIMenu menu) 
         {
             Menu = menu;
         }
+
+        #endregion
     }
 }

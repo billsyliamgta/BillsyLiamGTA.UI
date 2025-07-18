@@ -5,13 +5,13 @@ using GTA.Native;
 namespace BillsyLiamGTA.UI.Elements
 {
     /// <summary>
-    /// A class for drawing Scaled Sprites.
+    /// A class for drawing scaled sprites.
     /// </summary>
     public class UISprite
     {
         #region Properties
 
-        public TextureAsset TextureAsset { get; private set; }
+        public Texture Texture { get; private set; }
 
         public PointF Position { get; set; }
 
@@ -25,16 +25,16 @@ namespace BillsyLiamGTA.UI.Elements
 
         #region Constructors
 
-        public UISprite(TextureAsset textureAsset, PointF position, SizeF size)
+        public UISprite(Texture texture, PointF position, SizeF size)
         {
-            TextureAsset = textureAsset;
+            Texture = texture;
             Position = position;
             Size = size;
         }
 
-        public UISprite(TextureAsset textureAsset, PointF position, SizeF size, Color colour)
+        public UISprite(Texture texture, PointF position, SizeF size, Color colour)
         {
-            TextureAsset = textureAsset;
+            Texture = texture;
             Position = position;
             Size = size;
             Colour = colour;
@@ -46,9 +46,9 @@ namespace BillsyLiamGTA.UI.Elements
 
         public void Draw()
         {
-            if (!TextureAsset.IsLoaded)
+            if (!Texture.IsLoaded)
             {
-                TextureAsset.Load();
+                Texture.Load();
                 return;
             }
 
@@ -61,11 +61,12 @@ namespace BillsyLiamGTA.UI.Elements
             float h = (Size.Height / height);
             float x = (Position.X / width) + w * 0.5f;
             float y = (Position.Y / height) + h * 0.5f;
-            Function.Call(Hash.DRAW_SPRITE, TextureAsset.Dictionary, TextureAsset.Name, x, y, w, h, Heading, Colour.R, Colour.G, Colour.B, Colour.A);
+            Function.Call(Hash.DRAW_SPRITE, Texture.Dictionary, Texture.Name, x, y, w, h, Heading, Colour.R, Colour.G, Colour.B, Colour.A);
         }
 
         public bool IsCursorAbove() => SafezoneTools.IsCursorInArea(Position, Size);
-        public void Dispose() => TextureAsset?.Dispose();
+
+        public void Dispose() => Texture?.Dispose();
 
         #endregion
     }

@@ -7,7 +7,7 @@ namespace BillsyLiamGTA.UI.Elements
     /// <summary>
     /// A class for loading and managing textures.
     /// </summary>
-    public class TextureAsset
+    public class Texture
     {
         #region Properties
 
@@ -34,13 +34,13 @@ namespace BillsyLiamGTA.UI.Elements
 
         #region Constructors
 
-        public TextureAsset(string dictionary, string name)
+        public Texture(string dictionary, string name)
         {
             Dictionary = dictionary;
             Name = name;
         }
 
-        public TextureAsset(string dictionary)
+        public Texture(string dictionary)
         {
             Dictionary = dictionary;
         }
@@ -68,7 +68,7 @@ namespace BillsyLiamGTA.UI.Elements
             }
         }
         /// <summary>
-        /// Sets the texture dictionary as no longer needed, if it is loaded.
+        /// Set's the texture dictionary as no longer needed, if it is loaded.
         /// </summary>
         public void Dispose()
         {
